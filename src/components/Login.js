@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../api/api";
 import errorDisplay from "../api/errorDisplay";
-import { login, saveJwtToken, setRole } from "../redux/userSlice";
+import { addUserInfo, login, saveJwtToken, setRole } from "../redux/userSlice";
 import style from "../css/login.module.css";
 
 export default function Login({ onClose }) {
@@ -16,25 +16,26 @@ export default function Login({ onClose }) {
     e.preventDefault();
 
     try {
-        const response = await apiClient.post(
-            "/login",
-            new URLSearchParams({ username: email, password: password }),
-            {
-                withCredentials: true,
-            }
-        );
-        const token = response.headers["authorization"];
-        await dispatch(saveJwtToken(token)); // 토큰 저장
-        await dispatch(login(email)); // 로그인 상태 업데이트
-        await dispatch(setRole(response.data)); // 역할 설정
-        alert("로그인 성공!!");
-        onClose();
-        nav("/");
+      const response = await apiClient.post(
+        "/login",
+        new URLSearchParams({ username: email, password: password }),
+        {
+          withCredentials: true,
+        }
+      );
+      const token = response.headers["authorization"];
+      await dispatch(saveJwtToken(token)); // 토큰 저장
+      await dispatch(login(email)); // 로그인 상태 업데이트
+      await dispatch(setRole(response.data)); // 역할 설정
+      console.log(response.data);
+      await dispatch(addUserInfo(response.data));
+      alert("로그인 성공!!");
+      onClose();
+      nav("/");
     } catch (error) {
-        errorDisplay(error);
+      errorDisplay(error);
     }
-};
-
+  };
 
   return (
     <div className={style.overlay} onClick={onClose}>
