@@ -6,8 +6,10 @@ import style from "../css/layout.module.css";
 export default function Layout() {
   return (
     <>
-      <Header />
-      <div>
+      <div className={style.header}>
+        <Header />
+      </div>
+      <div className={style.content}>
         <Outlet />
       </div>
     </>

@@ -13,6 +13,7 @@ import Entertainment from "./pages/post/category/entertainment/Entertainment";
 import Love from "./pages/post/category/entertainment/subcategory/Love";
 import Travel from "./pages/post/category/entertainment/subcategory/Travel";
 import Etc from "./pages/post/category/entertainment/subcategory/Etc";
+import WritePost from "./pages/post/WritePost";
 import SignUp from "./pages/user/Signup";
 import Login from "./components/Login";
 
@@ -37,6 +38,7 @@ function App() {
               <Route path="travel" element={<Travel />}></Route>
               <Route path="etc" element={<Etc />}></Route>
             </Route>
+            <Route path="writepost" element={<WritePost />}></Route>
             <Route path="signup" element={<SignUp />}></Route>
             <Route path="login" element={<Login />}></Route>
           </Route>

@@ -1,0 +1,22 @@
+.box_container {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.img {
+  width: 380px;
+  height: 380px;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.author {
+  font-size: 12px;
+  font-weight: 300;
+}
