@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../api/api";
 import errorDisplay from "../api/errorDisplay";
@@ -18,21 +18,23 @@ export default function Login({ onClose }) {
     try {
       const response = await apiClient.post(
         "/login",
-        new URLSearchParams({ username: email, password: password }),
+        { username: email, password: password }, // JSON 형식으로 요청
         {
           withCredentials: true,
         }
       );
+
       const token = response.headers["authorization"];
-      await dispatch(login(email));
-      console.log("토큰:" + token);
-      await dispatch(saveJwtToken(token));
-      await dispatch(setRole(response.data));
+      dispatch(saveJwtToken(token)); // 토큰 저장
+      dispatch(login(email)); // 로그인 상태 업데이트
+      dispatch(setRole(response.data.role)); // 역할 설정 (response.data.role이 역할 정보라고 가정)
+
       alert("로그인 성공!!");
       onClose();
       nav("/");
     } catch (error) {
-      errorDisplay(error);
+      console.error("로그인 중 오류 발생:", error); // 에러 콘솔 출력
+      errorDisplay(error); // 사용자에게 에러 표시
     }
   };
 

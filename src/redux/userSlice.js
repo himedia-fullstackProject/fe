@@ -15,7 +15,6 @@ const userSlice = createSlice({
     },
     clearUserInfo: (state) => {
       state.userInfoList = [];
-      state.userRentList = [];
     },
     login: (state, action) => {
       state.isLoggedIn = true;
