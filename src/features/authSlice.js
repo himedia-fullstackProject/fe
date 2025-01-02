@@ -6,10 +6,12 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8080/login';
 
 // 로그인 API 호출
+// src/features/authSlice.js
 export const loginUser = createAsyncThunk('auth/login', async (credentials) => {
-    const response = await axios.post(API_URL, credentials);
-    return response.data; // 반환된 JWT 토큰
+    const response = await axios.post(API_URL, credentials); // credentials가 올바르게 전달되는지 확인
+    return response.data;
 });
+
 
 // 인증 슬라이스 정의
 const authSlice = createSlice({
