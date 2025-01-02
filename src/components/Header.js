@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import style from "../css/header.module.css";
 import { NavLink } from "react-router-dom";
 import Login from "./Login";
+import Search from "./Search";
 
 export default function Header() {
   const [showLogin, setShowLogin] = useState(false);
-
+  const [showSearchBar, setSearchBar] = useState(false);
   const handleLoginToggle = () => {
     setShowLogin(!showLogin);
   };
-
+  const handleSearchBar = () => {
+    setSearchBar(!showSearchBar);
+  };
   return (
     <>
       <div className={style.header_container}>
@@ -55,6 +58,10 @@ export default function Header() {
           </NavLink>
         </div>
         <div className={style.login_container}>
+          {/* 검색 버튼 추가 */}
+          <div className={style.searchbtn} onClick={handleSearchBar}>
+            검색
+          </div>
           <div className={style.loginbtn} onClick={handleLoginToggle}>
             LOGIN
           </div>
@@ -69,6 +76,7 @@ export default function Header() {
         </div>
       </div>
       {showLogin && <Login onClose={handleLoginToggle} />}
+      {showSearchBar && <Search onClose={handleSearchBar} />}
     </>
   );
 }

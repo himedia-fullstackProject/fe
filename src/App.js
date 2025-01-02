@@ -21,6 +21,8 @@ import SignUp from "./pages/user/Signup";
 import Login from "./components/Login";
 import UserLikesPage from "./pages/user/UserLikesPage";
 import UserPostLists from "./pages/user/UserPostLists";
+import SearchResult from "./pages/result/SearchResult";
+import HashTagSearchResult from "./pages/result/HashTagSearchResult";
 
 function App() {
   return (
@@ -51,6 +53,11 @@ function App() {
             <Route path="userpostlists" element={<UserPostLists />}></Route>
             <Route path="signup" element={<SignUp />}></Route>
             <Route path="login" element={<Login />}></Route>
+            <Route path="search/result" element={<SearchResult />} />
+            <Route
+              path="hashtag-search-result"
+              element={<HashTagSearchResult />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

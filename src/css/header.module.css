@@ -58,6 +58,8 @@
   gap: 30px;
   color: #49b8e8;
   font-size: 14px;
+  align-items: center;
+  gap: 10px;
 }
 
 .loginbtn {
@@ -107,4 +109,15 @@
   color: #49b8e8;
   font-weight: 400;
   border-bottom: 3px solid #49b8e8;
+}
+
+.searchbtn {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.searchbtn:hover {
+  color: #4b9fff;
 }
