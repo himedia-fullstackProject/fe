@@ -18,6 +18,7 @@ import Update from "./pages/post/Update";
 import WritePost from "./pages/post/WritePost";
 import MyPage from "./pages/user/MyPage";
 import SignUp from "./pages/user/Signup";
+import Login from "./components/Login";
 import UserLikesPage from "./pages/user/UserLikesPage";
 import UserPostLists from "./pages/user/UserPostLists";
 
@@ -47,6 +48,7 @@ function App() {
             <Route path="update" element={<Update />}></Route>
             <Route path="mypage" element={<MyPage />}></Route>
             <Route path="userlikes" element={<UserLikesPage />}></Route>
+            <Route path="login" element={<Login />}></Route>
             <Route path="userpostlists" element={<UserPostLists />}></Route>
             <Route path="signup" element={<SignUp />}></Route>
           </Route>
