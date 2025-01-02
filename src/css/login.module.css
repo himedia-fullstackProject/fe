@@ -76,3 +76,37 @@ label {
 .login_button:hover {
   background-color: #28abe3;
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.login_modal {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 832px;
+  margin: 0 auto;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.close_button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}

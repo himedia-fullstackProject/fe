@@ -51,6 +51,7 @@ function App() {
             <Route path="login" element={<Login />}></Route>
             <Route path="userpostlists" element={<UserPostLists />}></Route>
             <Route path="signup" element={<SignUp />}></Route>
+            <Route path="login" element={<Login />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
