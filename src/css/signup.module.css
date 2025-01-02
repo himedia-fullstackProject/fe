@@ -10,6 +10,28 @@
   font-family: Arial, sans-serif;
 }
 
+.username_container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.check_button {
+  height: 40px;
+  padding: 0 15px;
+  background-color: #49b8e8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.check_button:hover {
+  background-color: #28abe3;
+}
+
 .signup_title {
   font-size: 32px;
   font-weight: bold;
@@ -32,6 +54,7 @@
 }
 
 .input_box {
+  flex: 1;
   height: 40px;
   padding: 10px;
   border: 1px solid #a3a7a9;

@@ -15,12 +15,13 @@ export default function MainVisual() {
         delay: 5000,
         disableOnInteraction: false,
       }}
+      speed={1500}
       modules={[Autoplay]}
     >
       <SwiperSlide className={style.swiper_slide}>
         <img
           src="/main_visual.png"
-          alt="img"
+          alt="첫 번째 슬라이드"
           style={{ width: "100%", height: "auto" }}
         />
         <p className={style.title}>

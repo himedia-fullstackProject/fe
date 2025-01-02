@@ -30,7 +30,7 @@ export default function Login({ onClose }) {
       await dispatch(saveJwtToken(token));
       await dispatch(setRole(response.data.role));
       await dispatch(addUserInfo(response.data));
-      alert("로그인 성공!!");
+      alert("환영합니다.");
       onClose();
       nav("/");
     } catch (error) {
