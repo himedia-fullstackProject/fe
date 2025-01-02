@@ -4,8 +4,6 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  font-family: Inter;
-  font-style: italic;
 }
 
 body {
@@ -14,4 +12,6 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  font-family: Inter;
+  font-style: italic;
 }

@@ -1,0 +1,109 @@
+.header_container {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  padding: 0px 50px;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  border: 1px solid #444c50;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.navbtn.active,
+.navshortbtn.active {
+  color: #49b8e8;
+  border-bottom: 3px solid #49b8e8;
+}
+
+.navbtn,
+.navshortbtn {
+  color: #444c50;
+  font-weight: 400;
+  display: flex;
+  padding: 32px 10px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s;
+  height: 100px;
+  border-bottom: 3px solid transparent;
+}
+
+.navbtn {
+  width: 150px;
+}
+
+.navshortbtn {
+  width: 100px;
+}
+
+.navbtn:hover,
+.navshortbtn:hover {
+  color: #49b8e8;
+}
+
+.nav_container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.login_container {
+  display: flex;
+  gap: 30px;
+  color: #49b8e8;
+  font-size: 14px;
+}
+
+.loginbtn {
+  color: #444c50;
+  display: flex;
+  width: 80px;
+  padding: 32px 10px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.loginbtn:hover {
+  color: #49b8e8;
+}
+
+.signbtn {
+  color: #444c50;
+  display: flex;
+  width: 80px;
+  padding: 32px 10px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.signbtn {
+  color: #444c50;
+  display: flex;
+  width: 80px;
+  height: 100px;
+  padding: 32px 10px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s;
+  border-bottom: 3px solid transparent;
+}
+
+.signbtn:hover {
+  color: #49b8e8;
+}
+
+.signbtn.active {
+  color: #49b8e8;
+  font-weight: 400;
+  border-bottom: 3px solid #49b8e8;
+}
