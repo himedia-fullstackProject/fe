@@ -10,11 +10,13 @@ const apiClient = axios.create({
   withCredentials: true,
 });
 
-// 요청 인터셉터
 apiClient.interceptors.request.use(
   (config) => {
-    const jwtToken = store.getState().user.jwtToken || localStorage.getItem('jwtToken'); // JWT 토큰 가져오기
-    config.headers["authorization"] = jwtToken ? `Bearer ${jwtToken}` : undefined; // Bearer 토큰 형식으로 설정
+    if (config.data instanceof URLSearchParams) {
+      config.headers["Content-Type"] = "application/x-www-form-urlencoded";
+    }
+    const jwtToken = store.getState().user.jwtToken;
+    config.headers["authorization"] = jwtToken;
     return config;
   },
   (error) => {
@@ -22,7 +24,6 @@ apiClient.interceptors.request.use(
   }
 );
 
-// 응답 인터셉터
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -40,10 +41,9 @@ apiClient.interceptors.response.use(
           { withCredentials: true }
         );
         const newAccessToken = refreshResponse.headers["authorization"];
-        store.dispatch(saveJwtToken(newAccessToken)); // 새로운 토큰 저장
-        localStorage.setItem('jwtToken', newAccessToken); // 로컬 스토리지에 저장
+        store.dispatch(saveJwtToken(newAccessToken));
         console.log("만료된 토큰 재발급 신청");
-        return apiClient(originalRequest); // 원래 요청 재시도
+        return apiClient(originalRequest);
       } catch (refreshError) {
         console.log("리프레쉬 토큰으로 재발급 실패");
         return Promise.reject(refreshError);

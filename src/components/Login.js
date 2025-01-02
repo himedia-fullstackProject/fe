@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../api/api";
 import errorDisplay from "../api/errorDisplay";
-import { addUserInfo, login, saveJwtToken, setRole } from "../redux/userSlice";
 import style from "../css/login.module.css";
+import { addUserInfo, login, saveJwtToken, setRole } from "../redux/userSlice";
 
 export default function Login({ onClose }) {
   const dispatch = useDispatch();
@@ -24,10 +24,11 @@ export default function Login({ onClose }) {
         }
       );
       const token = response.headers["authorization"];
-      await dispatch(saveJwtToken(token)); // 토큰 저장
-      await dispatch(login(email)); // 로그인 상태 업데이트
-      await dispatch(setRole(response.data)); // 역할 설정
+      await dispatch(login(email));
+      console.log("토큰:" + token);
       console.log(response.data);
+      await dispatch(saveJwtToken(token));
+      await dispatch(setRole(response.data.role));
       await dispatch(addUserInfo(response.data));
       alert("로그인 성공!!");
       onClose();
