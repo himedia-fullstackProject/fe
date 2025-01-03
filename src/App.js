@@ -47,7 +47,7 @@ function App() {
             </Route>
             <Route path="detail/:id" element={<Detail />}></Route>
             <Route path="write" element={<WritePost />}></Route>
-            <Route path="update" element={<Update />}></Route>
+            <Route path="update/:id" element={<Update />}></Route>
             <Route path="mypage" element={<MyPage />}></Route>
             <Route path="userlikes" element={<UserLikesPage />}></Route>
             <Route path="userpostlists" element={<UserPostLists />}></Route>
