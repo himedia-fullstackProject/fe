@@ -49,9 +49,6 @@ function App() {
             <Route path="write" element={<WritePost />} /> {/* 포스트 작성 */}
             <Route path="detail/:id" element={<Detail />} /> {/* 포스트 세부정보 */}
             <Route path="update/:id" element={<Update />} /> {/* 포스트 업데이트 */}
-            <Route path="detail/:id" element={<Detail />}></Route>
-            <Route path="write" element={<WritePost />}></Route>
-            <Route path="update" element={<Update />}></Route>
             <Route path="mypage" element={<MyPage />}></Route>
             <Route path="userlikes" element={<UserLikesPage />}></Route>
             <Route path="login" element={<Login />}></Route>
