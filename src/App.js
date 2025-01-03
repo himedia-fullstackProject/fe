@@ -43,7 +43,7 @@ function App() {
               <Route path="travel" element={<Travel />}></Route>
               <Route path="etc" element={<Etc />}></Route>
             </Route>
-            <Route path="detail" element={<Detail />}></Route>
+            <Route path="detail/:id" element={<Detail />}></Route>
             <Route path="write" element={<WritePost />}></Route>
             <Route path="update" element={<Update />}></Route>
             <Route path="mypage" element={<MyPage />}></Route>
