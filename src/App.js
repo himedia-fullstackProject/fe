@@ -44,13 +44,14 @@ function App() {
               <Route path="travel" element={<Travel />}></Route>
               <Route path="etc" element={<Etc />}></Route>
             </Route>
-
             {/* 포스트 관련 라우트 추가 */}
             <Route path="posts" element={<PostList />} /> {/* 포스트 목록 */}
             <Route path="write" element={<WritePost />} /> {/* 포스트 작성 */}
             <Route path="detail/:id" element={<Detail />} /> {/* 포스트 세부정보 */}
             <Route path="update/:id" element={<Update />} /> {/* 포스트 업데이트 */}
-
+            <Route path="detail/:id" element={<Detail />}></Route>
+            <Route path="write" element={<WritePost />}></Route>
+            <Route path="update" element={<Update />}></Route>
             <Route path="mypage" element={<MyPage />}></Route>
             <Route path="userlikes" element={<UserLikesPage />}></Route>
             <Route path="login" element={<Login />}></Route>

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import style from "../css/header.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
+import style from "../css/header.module.css";
 import Login from "./Login";
-import { logout } from "../redux/userSlice";
+import { FiSearch } from "react-icons/fi";
+import { clearUserInfo, logout } from "../redux/userSlice";
+import apiClient from "../api/api";
+import errorDisplay from "../api/errorDisplay";
 
 export default function Header() {
   const [showLogin, setShowLogin] = useState(false);
@@ -15,8 +18,14 @@ export default function Header() {
     setShowLogin(!showLogin);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await apiClient.post("/logout", null, { withCredentials: true });
+    } catch (error) {
+      errorDisplay(error);
+    }
     dispatch(logout());
+    dispatch(clearUserInfo());
     alert("로그아웃 되었습니다.");
     nav("/");
   };
@@ -76,24 +85,38 @@ export default function Header() {
           </NavLink>
         </div>
         <div className={style.login_container}>
+          <div className={style.search_icon}>
+            <FiSearch size={24} />
+          </div>
           {isLoggedIn ? (
             <>
-              <button className={style.loginbtn} onClick={() => nav("/mypage")}>
+              <button
+                className={`${style.signbtn} ${style.menu_button}`}
+                onClick={() => nav("/mypage")}
+              >
                 MY PAGE
               </button>
-              <button className={style.loginbtn} onClick={handleLogout}>
+              <button
+                className={`${style.loginbtn} ${style.menu_button}`}
+                onClick={handleLogout}
+              >
                 LOGOUT
               </button>
             </>
           ) : (
             <>
-              <button className={style.loginbtn} onClick={handleLoginToggle}>
+              <button
+                className={`${style.loginbtn} ${style.menu_button}`}
+                onClick={handleLoginToggle}
+              >
                 LOGIN
               </button>
               <NavLink
                 to="/signup"
                 className={({ isActive }) =>
-                  isActive ? `${style.signbtn} ${style.active}` : style.signbtn
+                  isActive
+                    ? `${style.signbtn} ${style.active} ${style.menu_button}`
+                    : `${style.signbtn} ${style.menu_button}`
                 }
               >
                 SIGNUP

@@ -20,14 +20,46 @@ export default function SignUp() {
     birthday: "",
   });
 
+  const [isChecked, setIsChecked] = useState(false);
+
   const handleChange = (e) => {
     setInputValue((prevValue) => ({
       ...prevValue,
       [e.target.name]: e.target.value,
     }));
+    if (e.target.name === "username") {
+      setIsChecked(false);
+    }
+  };
+
+  const checkUsername = async () => {
+    if (!inputValue.username) {
+      alert("아이디를 입력해주세요.");
+      return;
+    }
+
+    try {
+      const response = await apiClient.get(
+        `/api/users/check?username=${inputValue.username}`
+      );
+      if (response.data === false) {
+        alert("사용 가능한 아이디입니다.");
+        setIsChecked(true);
+      } else {
+        alert("이미 사용 중인 아이디입니다.");
+        setIsChecked(false);
+      }
+    } catch (error) {
+      errorDisplay(error);
+    }
   };
 
   const onSubmitAdd = async (e) => {
+    e.preventDefault();
+    if (!isChecked) {
+      alert("아이디 중복 체크를 해주세요.");
+      return;
+    }
     e.preventDefault();
     if (inputValue.password !== inputValue.confirmPassword) {
       alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
@@ -64,15 +96,24 @@ export default function SignUp() {
         <label htmlFor="username" className={style.input_label}>
           아이디
         </label>
-        <input
-          type="text"
-          name="username"
-          value={inputValue.username}
-          onChange={handleChange}
-          className={style.input_box}
-          placeholder="이메일 아이디 입력"
-          required
-        />
+        <div className={style.username_container}>
+          <input
+            type="text"
+            name="username"
+            value={inputValue.username}
+            onChange={handleChange}
+            className={style.input_box}
+            placeholder="이메일 아이디 입력"
+            required
+          />
+          <button
+            type="button"
+            onClick={checkUsername}
+            className={style.check_button}
+          >
+            중복 체크
+          </button>
+        </div>
 
         <label htmlFor="password" className={style.input_label}>
           비밀번호
