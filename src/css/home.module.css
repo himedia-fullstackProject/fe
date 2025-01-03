@@ -2,8 +2,3 @@
   display: flex;
   justify-content: space-between;
 }
-
-.home_container {
-  width: 1209px;
-  margin: auto;
-}

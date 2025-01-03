@@ -15,3 +15,8 @@
   margin: 100px auto 0;
   overflow-y: auto;
 }
+
+.cotent_container {
+  width: 1209px;
+  margin: auto;
+}

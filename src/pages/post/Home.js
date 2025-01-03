@@ -6,7 +6,7 @@ import BurgerMenu from "../../components/BurgerMenu";
 
 export default function Home() {
   return (
-    <div className={style.home_container}>
+    <div>
       <MainVisual />
       <BurgerMenu />
       <div className={style.box_container}>

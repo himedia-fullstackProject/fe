@@ -10,7 +10,9 @@ export default function Layout() {
         <Header />
       </div>
       <div className={style.content}>
-        <Outlet />
+        <div className={style.cotent_container}>
+          <Outlet />
+        </div>
       </div>
     </>
   );
