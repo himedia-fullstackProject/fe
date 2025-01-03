@@ -2,7 +2,6 @@ import React from "react";
 import ThBox from "../../components/ThBox";
 import style from "../../css/home.module.css";
 import MainVisual from "../../components/MainVisual";
-import { NavLink } from "react-router-dom";
 import BurgerMenu from "../../components/BurgerMenu";
 
 export default function Home() {

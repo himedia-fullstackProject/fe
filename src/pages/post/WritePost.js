@@ -88,7 +88,7 @@ const WritePost = () => {
                         type="number"
                         placeholder="#소분류 카테고리"
                         value={subCategoryId}
-                        onChange={(e) => setSubCategoryId(e.target.value)}
+                        onChange={(e) => setSugibCategoryId(e.target.value)}
                         required
                     />
                 </div>

@@ -53,39 +53,11 @@ apiClient.interceptors.response.use(
   }
 );
 
+
 // 포스트 생성
 export const createPost = async (postDTO) => {
   const response = await apiClient.post("/api/posts", postDTO);
   return response.data;
-};
-
-// 포스트 목록 가져오기
-export const fetchPosts = async (page = 0, size = 10) => {
-  const response = await apiClient.get(`/api/posts?page=${page}&size=${size}`);
-  return response.data.content; // 포스트 목록 반환
-};
-
-// 포스트 상세 조회
-export const fetchPostById = async (id) => {
-  const response = await apiClient.get(`/api/posts/${id}`);
-  return response.data; // 특정 포스트 반환
-};
-
-// 포스트 업데이트
-export const updatePost = async (id, postDTO) => {
-  const response = await apiClient.put(`/api/posts/${id}`, postDTO);
-  return response.data; // 업데이트된 포스트 반환
-};
-
-// 포스트 삭제
-export const deletePost = async (id) => {
-  await apiClient.delete(`/api/posts/${id}`);
-};
-
-// 포스트 검색
-export const searchPosts = async (searchRequest) => {
-  const response = await apiClient.post('/api/posts/search', searchRequest);
-  return response.data; // 검색된 포스트 목록 반환
 };
 
 export default apiClient;

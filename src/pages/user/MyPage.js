@@ -18,11 +18,13 @@ export default function MyPage() {
   const getNickname = (user) =>
     user && user.nickname ? user.nickname : "Guest";
 
-  const handleGoToLikes = () => {
+  const handleGoToLikes = (e) => {
+    e.preventDefault();
     nav("/userlikes");
   };
 
-  const handleGoToMyFeed = () => {
+  const handleGoToMyFeed = (e) => {
+    e.preventDefault();
     nav("/userpostlists");
   };
 
