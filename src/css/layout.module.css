@@ -9,6 +9,9 @@
 }
 
 .content {
-  width: 1209px;
+  width: 100%;
+  padding: 20px;
+  height: calc(100vh - 100px);
   margin: 100px auto 0;
+  overflow-y: auto;
 }
