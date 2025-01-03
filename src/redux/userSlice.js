@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchUserLikes } from "../api/likesApi";
+import { useDispatch } from "react-redux";
 
 const userSlice = createSlice({
   name: "users",
@@ -8,7 +10,7 @@ const userSlice = createSlice({
     currentUser: null,
     jwtToken: null,
     role: null,
-    likesList: [],
+    likedList: [],
   },
   reducers: {
     addUserInfo: (state, action) => {
@@ -26,12 +28,16 @@ const userSlice = createSlice({
       state.role = null;
       state.jwtToken = null;
       state.currentUser = null;
+      state.likedList = [];
     },
     saveJwtToken: (state, action) => {
       state.jwtToken = action.payload;
     },
     setRole: (state, action) => {
       state.role = action.payload;
+    },
+    setLikesList: (state, action) => {
+      state.likedList = action.payload;
     },
   },
 });
@@ -44,5 +50,6 @@ export const {
   logout,
   saveJwtToken,
   setRole,
+  setLikesList,
 } = userSlice.actions;
 export default userSlice.reducer;

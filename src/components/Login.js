@@ -23,6 +23,7 @@ export default function Login({ onClose }) {
           withCredentials: true,
         }
       );
+
       const token = response.headers["authorization"];
       await dispatch(login(email));
       console.log("토큰:" + token);
