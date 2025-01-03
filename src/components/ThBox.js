@@ -10,7 +10,7 @@ export default function ThBox() {
         src={"https://via.placeholder.com/150x150/000080"}
       />
 
-      <p className={style.title}>
+      <p className={style.post_title}>
         아이들 미연 , 갑자기 리즈 갱신한 이유 대공개
       </p>
 

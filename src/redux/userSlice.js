@@ -8,6 +8,7 @@ const userSlice = createSlice({
     currentUser: null,
     jwtToken: null,
     role: null,
+    likesList: [],
   },
   reducers: {
     addUserInfo: (state, action) => {
@@ -34,6 +35,7 @@ const userSlice = createSlice({
     },
   },
 });
+//user가 로그인을 하면 like 리스트 안에 likes list api 호출하여 보여지게 함
 
 export const {
   addUserInfo,

@@ -7,9 +7,11 @@ import { FiSearch } from "react-icons/fi";
 import { clearUserInfo, logout } from "../redux/userSlice";
 import apiClient from "../api/api";
 import errorDisplay from "../api/errorDisplay";
+import Search from "./Search";
 
 export default function Header() {
   const [showLogin, setShowLogin] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const dispatch = useDispatch();
   const nav = useNavigate();
@@ -28,6 +30,10 @@ export default function Header() {
     dispatch(clearUserInfo());
     alert("로그아웃 되었습니다.");
     nav("/");
+  };
+
+  const handleSearchBar = () => {
+    setShowSearchBar(!showSearchBar);
   };
 
   return (
@@ -85,7 +91,7 @@ export default function Header() {
           </NavLink>
         </div>
         <div className={style.login_container}>
-          <div className={style.search_icon}>
+          <div className={style.search_icon} onClick={setShowSearchBar}>
             <FiSearch size={24} />
           </div>
           {isLoggedIn ? (
@@ -126,6 +132,7 @@ export default function Header() {
         </div>
       </div>
       {showLogin && <Login onClose={handleLoginToggle} />}
+      {showSearchBar && <Search onClose={handleSearchBar} />}
     </>
   );
 }

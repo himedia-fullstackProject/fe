@@ -1,56 +1,76 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import apiClient from '../api/api';
-import errorDisplay from '../api/errorDisplay';
-import style from '../css/Search.module.css'; // 필요한 스타일을 추가하세요.
+import React, { useState } from "react";
+import { use } from "react";
+import { useNavigate } from "react-router-dom";
+import style from "../css/search.module.css";
+import SearchResult from "../pages/result/SearchResult";
 
-const Search = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [mainCategoryId, setMainCategoryId] = useState('');
-    const [subCategoryId, setSubCategoryId] = useState('');
-    const navigate = useNavigate();
+export default function Search({ onClose }) {
+  //검색 + 해쉬태그
+  const [searchTerm, setSearchTerm] = useState("");
+  const nav = useNavigate(); // 검색결과페이지 라우트
 
-    const handleSearch = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await apiClient.post('/api/posts/search', {
-                searchTerm,
-                mainCategoryId,
-                subCategoryId,
-                searchType: 'all', // 또는 사용자가 선택한 검색 유형
-            });
-            // 검색 결과를 처리하는 방법에 따라 페이지를 이동하거나 상태를 업데이트합니다.
-            navigate(`/searchresult`, { state: { posts: response.data } });
-        } catch (error) {
-            errorDisplay(error);
-        }
-    };
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      // nav(`/search/result?keyword=${searchTerm}`);받아올 키워드
+      nav(`/search/result`);
+      onClose();
+    }
+    try {
+    } catch (error) {}
+  };
 
-    return (
-        <form onSubmit={handleSearch} className={style.search_form}>
-            <input
+  return (
+    <div className={style.overlay} onClick={onClose}>
+      <div className={style.search_modal} onClick={(e) => e.stopPropagation()}>
+        <button className={style.close_button} onClick={onClose}>
+          X
+        </button>
+        <form onSubmit={handleSearch} className={style.search_container}>
+          <h2 className={style.title}>LET'S SEARCH</h2>
+
+          <div className={style.category_wrapper}>
+            <select className={style.category_select}>
+              <option value="">대분류 카테고리</option>
+              {/* 대분류 옵션들 */}
+            </select>
+
+            <select className={style.category_select}>
+              <option value="">소분류 카테고리</option>
+              {/* 소분류 옵션들 */}
+            </select>
+          </div>
+
+          <div className={style.search_wrapper}>
+            <select className={style.search_type}>
+              <option value="">선택하세요</option>
+              {/* 검색 타입 옵션들 */}
+            </select>
+
+            <div className={style.search_bar}>
+              <input
                 type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="검색어 입력"
+                placeholder="검색어를 입력하세요"
                 className={style.search_input}
-                required
-            />
-            <select onChange={(e) => setMainCategoryId(e.target.value)} className={style.category_select}>
-                <option value="">대분류 선택</option>
-                {/* 카테고리 목록을 동적으로 생성할 수 있습니다. */}
-                <option value="1">카테고리 1</option>
-                <option value="2">카테고리 2</option>
-            </select>
-            <select onChange={(e) => setSubCategoryId(e.target.value)} className={style.category_select}>
-                <option value="">소분류 선택</option>
-                {/* 소분류 목록을 동적으로 생성할 수 있습니다. */}
-                <option value="1">소분류 1</option>
-                <option value="2">소분류 2</option>
-            </select>
-            <button type="submit" className={style.search_button}>검색</button>
-        </form>
-    );
-};
+              />
+              <button type="submit" className={style.search_button}>
+                검색하기
+              </button>
+            </div>
+          </div>
 
-export default Search;
+          <div className={style.tag_section}>
+            <h3 className={style.tag_title}>#요즘 떠오르는 TAG는?</h3>
+            <div className={style.tag_list}>
+              <span className={style.tag}>#일상</span>
+              <span className={style.tag}>#일상</span>
+              <span className={style.tag}>#일상</span>
+              <span className={style.tag}>#일상</span>
+              <span className={style.tag}>#일상</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
