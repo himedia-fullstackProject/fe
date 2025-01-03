@@ -20,8 +20,11 @@ const WritePost = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // 로그인 상태 확인 로직
-    }, []);
+        // 로그인 상태 확인
+        if (!token) {
+            navigate('/login'); // 로그인 페이지로 리다이렉트
+        }
+    }, [token, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,7 +47,16 @@ const WritePost = () => {
             });
 
             alert('포스트가 성공적으로 작성되었습니다!');
-            navigate('/');
+            // 입력 필드 초기화
+            setTitle('');
+            setImageUrl('');
+            setDescription('');
+            setTag1('');
+            setTag2('');
+            setTag3('');
+            setMainCategoryId('');
+            setSubCategoryId('');
+            navigate('/'); // 홈으로 리다이렉트
         } catch (error) {
             const errorMessage = errorDisplay(error);
             console.error("포스트 작성 중 오류 발생:", errorMessage);
@@ -59,7 +71,6 @@ const WritePost = () => {
 
     return (
         <div className={styles.container}>
-            {/* 헤더 아래에 게시글 작성하기 문구 위치 */}
             <h1 className={styles.title}>#게시글 작성하기</h1>
             {error && <div className={styles.error}>{error}</div>}
             <form onSubmit={handleSubmit}>

@@ -1,41 +1,63 @@
-// src/pages/post/PostList.js
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts } from '../../redux/postSlice';
+import React, { useEffect, useState } from 'react';
+import apiClient from '../../api/api';
+import errorDisplay from '../../api/errorDisplay';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchPosts as fetchPostsFromAPI } from '../../api/api'; // 수정된 경로
 
 const PostList = () => {
-    const dispatch = useDispatch();
-    const posts = useSelector((state) => state.posts.posts);
-    const status = useSelector((state) => state.posts.status);
+    const [posts, setPosts] = useState([]);
+    const [error, setError] = useState(null);
+    const token = useSelector((state) => state.user.jwtToken); // Redux에서 JWT 토큰 가져오기
+    const userId = useSelector((state) => state.user.id); // Redux에서 사용자 ID 가져오기
+
+    const fetchUserPosts = async () => {
+        try {
+            const response = await apiClient.get(`/api/posts/user/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setPosts(response.data);
+        } catch (error) {
+            setError("포스트를 불러오는 데 실패했습니다.");
+            errorDisplay(error);
+        }
+    };
+
+    const handleDelete = async (postId) => {
+        try {
+            await apiClient.delete(`/api/posts/${postId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setPosts(posts.filter(post => post.id !== postId));
+        } catch (error) {
+            errorDisplay(error);
+        }
+    };
 
     useEffect(() => {
-        const loadPosts = async () => {
-            try {
-                const postsData = await fetchPostsFromAPI(); // API 호출
-                dispatch(fetchPosts(postsData)); // Redux 상태 업데이트
-            } catch (error) {
-                console.error("포스트 목록 로드 중 오류 발생:", error);
-            }
-        };
-
-        if (status === 'idle') {
-            loadPosts();
-        }
-    }, [status, dispatch]);
+        fetchUserPosts(); // 포스트 목록 가져오기
+    }, [userId, token]);
 
     return (
         <div>
-            <h2>Posts</h2>
-            <Link to="/write">Write a New Post</Link>
-            <ul>
-                {posts.map((post) => (
-                    <li key={post.id}>
-                        <Link to={`/detail/${post.id}`}>{post.title}</Link>
-                    </li>
-                ))}
-            </ul>
+            <h2>내 포스트</h2>
+            {error && <p>{error}</p>}
+            {posts.length > 0 ? (
+                <ul>
+                    {posts.map((post) => (
+                        <li key={post.id}>
+                            <Link to={`/post/${post.id}`}>{post.title}</Link>
+                            <button onClick={() => handleDelete(post.id)}>삭제</button>
+                            <Link to={`/update/${post.id}`}>수정</Link>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>작성한 포스트가 없습니다.</p>
+            )}
         </div>
     );
 };
