@@ -45,4 +45,4 @@ jobs:
               sudo docker rmi -f ${{ secrets.DOCKERHUB_USERNAME }}/dailyhubfrontend
             fi          
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/dailyhubfrontend         
-            sudo docker run -d -p 80:80 --name dockerfrontend ${{ secrets.DOCKERHUB_USERNAME }}/dailyhubfrontend
+            sudo docker run -d -p 80:80 --name dailyhubfrontend ${{ secrets.DOCKERHUB_USERNAME }}/dailyhubfrontend
