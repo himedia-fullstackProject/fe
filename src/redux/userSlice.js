@@ -22,6 +22,7 @@ const userSlice = createSlice({
     login: (state, action) => {
       state.isLoggedIn = true;
       state.currentUser = action.payload;
+      // state.likedList = action.payload;
     },
     logout: (state) => {
       state.isLoggedIn = false;

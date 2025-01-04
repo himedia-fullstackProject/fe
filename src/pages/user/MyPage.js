@@ -21,10 +21,12 @@ export default function MyPage() {
         return false;
       }
       const likesData = await fetchUserLikes(userId); // 서버에서 불러온 api
-      dispatch(setLikesList(likesData)); // 리덕스 빈껍데기
+      dispatch(setLikesList(likesData)); // 리덕스 빈껍데기+  api 데이터
       console.log("좋아요~", likesData);
+      return true;
     } catch (error) {
       console.error("좋아요가 싫어요가 되었다 ", error);
+      return false;
     }
   };
 
@@ -38,11 +40,17 @@ export default function MyPage() {
     user && user.nickname ? user.nickname : "Guest";
 
   const handleGoToLikes = async () => {
-    const successLikes = await getUserLikes();
-    // 이놈이 실행되면서 api호출-> 리덕스 like어쩌구 저장소에 data가 들어옴
-    if (successLikes) {
-      nav("/userlikes"); // 데이터 로드가 성공되면 likes페이지로 이동
-      console.log("굿굿");
+    try {
+      const successLikes = await getUserLikes();
+      // 이놈이 실행되면서 api호출-> 리덕스 like어쩌구 저장소에 data가 들어옴
+      if (successLikes) {
+        nav("/userlikes"); // 데이터 로드가 성공되면 likes페이지로 이동
+        console.log("굿굿");
+      } else {
+        console.log("좋아요 데이터 로드 실패 ㅜㅜ");
+      }
+    } catch (error) {
+      console.error("에러 발생:", error);
     }
   };
 
