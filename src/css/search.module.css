@@ -93,6 +93,7 @@
   background: #e8f3ff;
   color: #49b8e8;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .close_button {
