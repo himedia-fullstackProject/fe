@@ -50,16 +50,8 @@ export default function UserLikesPage() {
         ))}
       </div>
 
-      {totalPages > 1 && (
+      {totalPages > 0 && (
         <div className={style.pagination}>
-          <button
-            onClick={() => addLikesPage(Math.max(0, currentPage - 1))}
-            disabled={isFirstPage}
-            className={style.page_button}
-          >
-            이전
-          </button>
-
           {[...Array(totalPages)].map((_, index) => (
             <button
               key={index}
@@ -71,16 +63,6 @@ export default function UserLikesPage() {
               {index + 1}
             </button>
           ))}
-
-          <button
-            onClick={() =>
-              addLikesPage(Math.min(totalPages - 1, currentPage + 1))
-            }
-            disabled={isLastPage}
-            className={style.page_button}
-          >
-            다음
-          </button>
         </div>
       )}
     </div>

@@ -5,6 +5,7 @@ import { setLikesList } from "../redux/userSlice";
 import style from "../css/likeThBox.module.css";
 import ThBox from "./ThBox";
 
+//유저 - 포스트에 관하여 좋아요 처리
 export default function LikeThBox({ id, image, title, author }) {
   const [isLiked, setIsLiked] = useState(true); //초기값 true
   const dispatch = useDispatch();
@@ -35,7 +36,6 @@ export default function LikeThBox({ id, image, title, author }) {
           })
         );
       }
-
       setIsLiked(false);
       console.log("좋아요 취소 완료:", result);
     } catch (error) {

@@ -53,13 +53,13 @@
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 10px;
-  margin-top: 40px;
-  position: fixed;
-  bottom: 40px; /* 아래에서 40px 떨어짐 */
-  left: 50%; /* 가운데 정렬을 위해 */
-  transform: translateX(-50%); /* 가운데 정렬 완성 */
-  width: 100%; /* 전체 너비 사용 */
+  margin: 20px auto; /* 위아래 마진 추가 */
+  position: relative; /* 부모 요소 안에서 동작 */
+  bottom: auto; /* fixed 위치 제거 */
+  transform: none; /* translate 제거 */
+  max-width: fit-content; /* 버튼 크기에 따라 동적 조정 */
 }
 
 .page_button {
@@ -67,7 +67,7 @@
   height: 36px;
   border: 1px solid #ddd;
   background: none;
-  border-radius: 50%;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.2s;
 }
