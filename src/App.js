@@ -35,14 +35,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />}></Route>
-            <Route path="fashion&beauty" element={<FashionBeauty />}>
-              <Route path="fashion" element={<Fashion />}></Route>
-              <Route path="beauty" element={<Beauty />}></Route>
-            </Route>
-            <Route path="f&b" element={<FB />}>
-              <Route path="recipe" element={<Recipe />}></Route>
-              <Route path="hotplace" element={<HotPlace />}></Route>
-            </Route>
+            <Route path="fashion&beauty" element={<FashionBeauty />}></Route>
+            <Route path="fashion" element={<Fashion />}></Route>
+            <Route path="beauty" element={<Beauty />}></Route>
+            <Route path="f&b" element={<FB />}></Route>
+            <Route path="recipe" element={<Recipe />}></Route>
+            <Route path="hotplace" element={<HotPlace />}></Route>
             <Route path="health" element={<Health />}></Route>
             <Route path="entertainment" element={<Entertainment />}>
               <Route path="love" element={<Love />}></Route>
