@@ -10,8 +10,10 @@ import {
   saveJwtToken,
   setLikesList,
   setRole,
+  setUserPostList,
 } from "../redux/userSlice";
 import { fetchUserLikes } from "../api/likesApi";
+import { fetchPosts } from "../api/postApi";
 
 export default function Login({ onClose }) {
   const dispatch = useDispatch();
@@ -41,7 +43,12 @@ export default function Login({ onClose }) {
       const likesData = await fetchUserLikes(response.data.username);
       if (likesData) {
         dispatch(setLikesList(likesData));
-        console.log("졸아요 대이터 :", likesData);
+      }
+
+      // 그 다음 posts 데이터 로드
+      const postData = await fetchPosts(response.data.username);
+      if (postData) {
+        dispatch(setUserPostList(postData));
       }
 
       alert("환영합니다.");
