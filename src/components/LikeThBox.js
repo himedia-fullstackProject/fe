@@ -3,7 +3,6 @@ import { likesUpdate } from "../api/likesApi";
 import { useSelector, useDispatch } from "react-redux";
 import { setLikesList } from "../redux/userSlice";
 import style from "../css/likeThBox.module.css";
-import ThBox from "./ThBox";
 
 //유저 - 포스트에 관하여 좋아요 처리
 export default function LikeThBox({ id, image, title, author }) {
@@ -45,7 +44,12 @@ export default function LikeThBox({ id, image, title, author }) {
 
   return (
     <div className={style.likeContainer}>
-      <ThBox id={id} image={image} title={title} author={author} />
+      <img
+        className={style.img}
+        alt={title}
+        src={image || "https://via.placeholder.com/150x150/000080"} // 이미지가 없을 경우 기본 이미지
+      />
+      <p className={style.post_title}>{title}</p>
       <button
         onClick={handleLikeClick}
         className={`${style.likeButton} ${isLiked ? style.liked : ""}`}

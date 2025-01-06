@@ -1,5 +1,10 @@
 /* css/likeThBox.module.css */
 .likeContainer {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
   position: relative;
 }
 
@@ -12,6 +17,20 @@
   margin-bottom: 3rem;
 }
 
+.img {
+  width: 380px;
+  height: 380px;
+  border-radius: 10px;
+}
+
+.post_title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  text-align: left; /* 왼쪽 정렬*/
+}
+
 .likeButton {
   position: absolute;
   top: 10px;
@@ -22,6 +41,7 @@
   cursor: pointer;
   font-size: 1.2rem;
   transition: transform 0.2s;
+  z-index: 10;
 }
 
 .likeButton:hover {
@@ -55,10 +75,11 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 20px auto; /* 위아래 마진 추가 */
+  /* margin: 0px auto;  */
   position: relative; /* 부모 요소 안에서 동작 */
-  bottom: auto; /* fixed 위치 제거 */
-  transform: none; /* translate 제거 */
+  left: 50%;
+  bottom: 20px; /* fixed 위치 제거 */
+  transform: translateX(-50%);
   max-width: fit-content; /* 버튼 크기에 따라 동적 조정 */
 }
 

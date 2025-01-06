@@ -4,7 +4,14 @@ import { useNavigate } from "react-router-dom";
 import apiClient from "../api/api";
 import errorDisplay from "../api/errorDisplay";
 import style from "../css/login.module.css";
-import { addUserInfo, login, saveJwtToken, setRole } from "../redux/userSlice";
+import {
+  addUserInfo,
+  login,
+  saveJwtToken,
+  setLikesList,
+  setRole,
+} from "../redux/userSlice";
+import { fetchUserLikes } from "../api/likesApi";
 
 export default function Login({ onClose }) {
   const dispatch = useDispatch();
@@ -30,6 +37,13 @@ export default function Login({ onClose }) {
       await dispatch(saveJwtToken(token));
       await dispatch(setRole(response.data.role));
       await dispatch(addUserInfo(response.data));
+
+      const likesData = await fetchUserLikes(response.data.username);
+      if (likesData) {
+        dispatch(setLikesList(likesData));
+        console.log("졸아요 대이터 :", likesData);
+      }
+
       alert("환영합니다.");
       onClose();
       nav("/");
