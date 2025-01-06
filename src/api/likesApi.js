@@ -2,17 +2,16 @@ import apiClient from "./api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setLikesList } from "../redux/userSlice";
 
-// user엔티티에 있는 id
-export const fetchUserLikes =
-  (userId, page = 0) =>
-  async (dispatch) => {
-    try {
-      const response = await apiClient.get(`/api/likes/${userId}?page=${page}`);
-      dispatch(setLikesList(response.data));
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+// user엔티티에 있는 username
+export const fetchUserLikes = async (username, page = 0) => {
+  try {
+    const response = await apiClient.get(`/api/likes/${username}?page=${page}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
 
 // postDTO의 userId와 postid(id)
 export const likesUpdate = async (userId, id) => {
