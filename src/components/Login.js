@@ -38,7 +38,7 @@ export default function Login({ onClose }) {
       await dispatch(setRole(response.data.role));
       await dispatch(addUserInfo(response.data));
 
-      const likesData = await fetchUserLikes(response.data.user_id);
+      const likesData = await fetchUserLikes(response.data.username);
       if (likesData) {
         dispatch(setLikesList(likesData));
         console.log("졸아요 대이터 :", likesData);
