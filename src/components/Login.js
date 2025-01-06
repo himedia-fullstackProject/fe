@@ -14,7 +14,6 @@ export default function Login({ onClose }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // 여기다 내 api 호출 하던가 따로 함수를 만들어서 불러오던가 ..
     try {
       const response = await apiClient.post(
         "/login",
@@ -23,6 +22,7 @@ export default function Login({ onClose }) {
           withCredentials: true,
         }
       );
+
       const token = response.headers["authorization"];
       await dispatch(login(email));
       console.log("토큰:" + token);
