@@ -24,6 +24,10 @@ import UserPostLists from "./pages/user/UserPostLists";
 import PostList from "./pages/post/PostList"; // 포스트 목록 컴포넌트
 import SearchResult from "./pages/result/SearchResult";
 import HashTagSearchResult from "./pages/result/HashTagSearchResult";
+import CategoryPage from "./pages/post/category/CategoryPage"; // 카테고리 페이지
+import SubCategoryPage from "./pages/post/category/SubCategoryPage"; // 서브 카테고리 페이지
+import ThBox from "./components/ThBox";
+
 function App() {
   return (
     <>
@@ -60,7 +64,10 @@ function App() {
             <Route
               path="hashtag-search-result"
               element={<HashTagSearchResult />}
+              
             />
+            <Route path="category/:categoryId" element={<CategoryPage />} /> {/* 카테고리 페이지 */}
+            <Route path="category/:categoryId/:subCategoryId" element={<SubCategoryPage />} /> {/* 서브 카테고리 페이지 */}
           </Route>
         </Routes>
       </BrowserRouter>
