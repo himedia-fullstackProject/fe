@@ -2,12 +2,14 @@ import apiClient from "./api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setLikesList } from "../redux/userSlice";
 
-// user엔티티에 있는 id
+// user엔티티에 있는 username
 export const fetchUserLikes =
-  (userId, page = 0) =>
+  (username, page = 0) =>
   async (dispatch) => {
     try {
-      const response = await apiClient.get(`/api/likes/${userId}?page=${page}`);
+      const response = await apiClient.get(
+        `/api/likes/${username}?page=${page}`
+      );
       dispatch(setLikesList(response.data));
     } catch (error) {
       console.error("Error:", error);

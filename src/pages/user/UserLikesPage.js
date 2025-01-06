@@ -9,16 +9,16 @@ export default function UserLikesPage() {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.user.userInfoList);
   const user = userList?.[0];
-  const userId = user?.user_id;
+  const username = user?.username;
   const [currentPage, setCurrentPage] = useState(0);
   const likeData = useSelector((state) => state.user.likedList);
   //likedListByUser 구조 분해 => 좋아요 포스트, 페이지
 
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchUserLikes(userId, currentPage));
+    if (username) {
+      dispatch(fetchUserLikes(username, currentPage));
     }
-  }, [dispatch, userId, currentPage]);
+  }, [dispatch, username, currentPage]);
 
   useEffect(() => {
     console.log("현재 좋아요 데이터:", likeData);

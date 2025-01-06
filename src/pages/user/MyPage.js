@@ -6,21 +6,22 @@ import { useNavigate } from "react-router-dom";
 import { fetchUserLikes } from "../../api/likesApi";
 import { setLikesList } from "../../redux/userSlice";
 import { data } from "autoprefixer";
+import LikeThBox from "../../components/LikeThBox";
 
 export default function MyPage() {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.user.userInfoList);
   const user = userList?.[0];
   const nav = useNavigate();
-  const userId = user?.user_id;
+  const likedList = useSelector((state) => state.user.likedList);
 
-  const getUserLikes = async () => {
+  const getUserLikes = async (username) => {
     try {
-      if (!userId) {
+      if (!username) {
         console.error("사용자 ID가 없습니다", userList);
         return false;
       }
-      const likesData = await fetchUserLikes(userId); // 서버에서 불러온 api
+      const likesData = await fetchUserLikes(username); // 서버에서 불러온 api
       dispatch(setLikesList(likesData)); // 리덕스 빈껍데기+  api 데이터
       console.log("좋아요~", likesData);
       return true;
@@ -41,7 +42,7 @@ export default function MyPage() {
 
   const handleGoToLikes = async () => {
     try {
-      const successLikes = await getUserLikes();
+      const successLikes = await getUserLikes(user?.username);
       // 이놈이 실행되면서 api호출-> 리덕스 like어쩌구 저장소에 data가 들어옴
       if (successLikes) {
         nav("/userlikes"); // 데이터 로드가 성공되면 likes페이지로 이동
@@ -91,9 +92,18 @@ export default function MyPage() {
 
       <h2>#LIKES</h2>
       <div className={style.thumbnails}>
-        <ThBox />
-        <ThBox />
-        <ThBox />
+        {likedList?.content?.slice(0, 3).map((post) => (
+          <LikeThBox
+            key={post.id}
+            id={post.id}
+            image={post.image}
+            title={post.title}
+            author={post.author}
+          />
+        ))}
+        {(!likedList?.content || likedList.content.length === 0) && (
+          <p>좋아요한 게시글이 없습니다.</p>
+        )}
       </div>
     </div>
   );
