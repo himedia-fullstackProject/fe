@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchUserLikes } from "../../api/likesApi";
 import { setLikesList, setUserPostList } from "../../redux/userSlice";
 import LikeThBox from "../../components/LikeThBox";
-import { fetchPosts } from "../../api/postApi";
+import { fetchPosts } from "../../api/postapi";
 
 export default function MyPage() {
   const dispatch = useDispatch();
