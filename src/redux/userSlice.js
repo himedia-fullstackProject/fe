@@ -24,6 +24,7 @@ const userSlice = createSlice({
         userId: action.payload.user_id, // user_id를 userId로 매핑
         nickname: action.payload.nickname,
         role: action.payload.role,
+        username: action.payload.username,
       };
       // 필요 시 likedList 초기화
       // state.likedList = action.payload.likedList; // 필요 시 추가

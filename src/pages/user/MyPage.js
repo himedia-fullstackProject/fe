@@ -19,6 +19,8 @@ export default function MyPage() {
 
   // 컴포넌트 마운트 시 좋아요 데이터 자동 로드
   useEffect(() => {
+    console.log("현재 user 객체:", user); // user 전체 객체 확인
+    console.log("username:", user?.username);
     if (user?.username) {
       getUserLikes(user.username);
       getUserPosts(user.username);

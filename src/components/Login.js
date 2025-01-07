@@ -31,30 +31,28 @@ export default function Login({ onClose }) {
           withCredentials: true,
         }
       );
-  
+
       console.log("로그인 응답 데이터:", response.data); // 여기서 userId 확인
-  
+
       const token = response.headers["authorization"];
       await dispatch(login(email));
       console.log("토큰:" + token);
       await dispatch(saveJwtToken(token));
       await dispatch(setRole(response.data.role));
       console.log("로그인 후 currentUser:", response.data);
-await dispatch(addUserInfo({ user_id: response.data.user_id, nickname: response.data.nickname, role: response.data.role }));
+      await dispatch(addUserInfo(response.data));
 
-
-  
       const likesData = await fetchUserLikes(response.data.username);
       if (likesData) {
         dispatch(setLikesList(likesData));
       }
-  
+
       // 그 다음 posts 데이터 로드
       const postData = await fetchUserPosts(response.data.username);
       if (postData) {
         dispatch(setUserPostList(postData));
       }
-  
+
       alert("환영합니다.");
       onClose();
       nav("/");
@@ -62,7 +60,6 @@ await dispatch(addUserInfo({ user_id: response.data.user_id, nickname: response.
       errorDisplay(error);
     }
   };
-  
 
   return (
     <div className={style.overlay} onClick={onClose}>
