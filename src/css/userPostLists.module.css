@@ -1,0 +1,31 @@
+/* src/css/userPostLists.module.css */
+.user_post_lists_container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+.user_post_lists_container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.post_list {
+    display: flex;
+    flex-direction: column;
+}
+
+.post_item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.post_item:hover {
+    background-color: #f1f1f1;
+}

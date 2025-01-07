@@ -1,0 +1,88 @@
+.box_container {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+}
+.title 
+/* 메인 카테고리 , likes ,user_id 화면에 출력할때 뜨는 파란 글씨 대충 통일 해놈  */ {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #28abe3;
+  margin-bottom: 3rem;
+}
+.img {
+  width: 380px;
+  height: 380px;
+  border-radius: 10px;
+}
+
+.post_title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  text-align: left; /* 왼쪽 정렬*/
+}
+
+.author {
+  font-size: 12px;
+  font-weight: 400;
+  color: #222;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  /* margin: 0px auto;  */
+  position: relative; /* 부모 요소 안에서 동작 */
+  left: 50%;
+  bottom: 0px; /* fixed 위치 제거 */
+  transform: translateX(-50%);
+  max-width: fit-content; /* 버튼 크기에 따라 동적 조정 */
+}
+
+.page_button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ddd;
+  background: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.page_button:hover {
+  background-color: #f5f5f5;
+}
+
+.page_button.active {
+  background-color: #28abe3;
+  color: white;
+  border-color: #28abe3;
+}
+/* 페이지 네이션 버튼 디자인 */
+.tags {
+  margin-top: 8px; /* 태그와 다른 요소 간의 간격 */
+}
+
+.tag {
+  display: inline-block; /* 태그를 인라인 블록으로 설정 */
+  background-color: #f5f5f5; /* 태그 배경색 */
+  color: #666; /* 태그 텍스트 색 */
+  padding: 5px 10px; /* 패딩 설정 */
+  border-radius: 20px; /* 테두리 둥글게 */
+  margin-right: 5px; /* 태그 간의 간격 */
+  font-size: 0.9rem; /* 폰트 크기 */
+}

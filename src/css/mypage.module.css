@@ -1,0 +1,77 @@
+.mypage_container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  margin: 50px 0 0;
+}
+
+h1 {
+  color: #49b8e8;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.user_info {
+  width: 926px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #49b8e8;
+  color: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  margin: 0 auto 20px;
+}
+
+.user_nick {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.join_info {
+  font-size: 14px;
+  text-align: right;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.like_button,
+.myfeed_button {
+  flex: 0 0 460px;
+  height: 76px;
+  background-color: white;
+  color: #222;
+  border: 1px solid;
+  border-color: rgba(73, 184, 232, 0.6);
+  border-radius: 10px;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.like_button:hover,
+.myfeed_button:hover {
+  background-color: #49b8e8;
+  color: white;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.thumbnails > div {
+  flex: 0 0 200px;
+  text-align: center;
+}

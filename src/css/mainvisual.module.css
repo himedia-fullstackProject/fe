@@ -1,0 +1,22 @@
+.swiper_slide {
+  position: relative;
+  cursor: pointer;
+  height: 500px;
+}
+
+.title {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}

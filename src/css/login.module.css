@@ -1,0 +1,112 @@
+.login_modal {
+  background-color: #fff;
+  height: 400px;
+  width: 100%;
+  position: absolute;
+}
+
+.login_container {
+  width: 460px;
+  position: relative;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1.title {
+  color: #444c50;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+label {
+  color: #444c50;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.input_box {
+  display: block;
+  border: 1px solid #a3a7a9;
+  border-radius: 10px;
+  height: 40px;
+  padding: 10px;
+  font-size: 14px;
+  color: #444c50;
+}
+
+.input_box:focus {
+  border-color: #82898c;
+  outline: none;
+}
+
+.input_box::placeholder {
+  font-family: Inter;
+  font-style: italic;
+  color: #a5aaad;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.login_button {
+  background-color: #49b8e8;
+  border: 1px solid #a3a8a9;
+  margin-top: 10px;
+  width: 460px;
+  height: 50px;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-family: Inter;
+  font-style: italic;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.login_button:hover {
+  background-color: #28abe3;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.login_modal {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 832px;
+  margin: 0 auto;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.close_button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}

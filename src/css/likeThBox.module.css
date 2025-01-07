@@ -1,0 +1,122 @@
+/* css/likeThBox.module.css */
+.likeContainer {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.title 
+/* 메인 카테고리 , likes ,user_id 화면에 출력할때 뜨는 파란 글씨 대충 통일 해놈  */ {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #28abe3;
+  margin-bottom: 3rem;
+}
+
+.img {
+  width: 380px;
+  height: 380px;
+  border-radius: 10px;
+}
+
+.post_title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  text-align: left; /* 왼쪽 정렬*/
+}
+
+.postCard {
+  width: 100%; /* 카드 너비 100% */
+  aspect-ratio: 1/1; /* 정사각형 비율 유지 */
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.likeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+  z-index: 10;
+}
+
+.likeButton:hover {
+  transform: scale(1.1);
+}
+
+.liked {
+  animation: pop 0.3s ease;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개의 열 */
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  overflow: hidden;
+  margin: 0 auto 30px;
+}
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  /* margin: 0px auto;  */
+  position: relative; /* 부모 요소 안에서 동작 */
+  left: 50%;
+  bottom: 0px; /* fixed 위치 제거 */
+  transform: translateX(-50%);
+  max-width: fit-content; /* 버튼 크기에 따라 동적 조정 */
+}
+
+.page_button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ddd;
+  background: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.page_button:hover {
+  background-color: #f5f5f5;
+}
+
+.page_button.active {
+  background-color: #28abe3;
+  color: white;
+  border-color: #28abe3;
+}
+/* 페이지 네이션 버튼 디자인 */
+
+.post_author {
+  font-size: 12px;
+  font-weight: 400;
+  color: #222;
+}

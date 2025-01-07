@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: Inter;
+  font-style: italic;
+  z-index: 1;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
