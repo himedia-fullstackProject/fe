@@ -1,6 +1,6 @@
 // src/components/Thbox.js
 import React, { useEffect, useState } from 'react';
-import { fetchPosts } from '../api/postapi'; // API에서 포스트를 가져오는 함수
+import { fetchPosts } from '../api/postApi'; // API에서 포스트를 가져오는 함수
 import { useNavigate } from 'react-router-dom'; // useNavigate 임포트
 import styles from '../css/thbox.module.css';
 

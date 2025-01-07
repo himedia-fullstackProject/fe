@@ -1,24 +1,26 @@
 import apiClient from "./api"; // apiClient를 가져오는 경로를 확인하세요
 // 모든 포스트 가져오기
-export const fetchPosts = async () => {
+export const fetchPost = async () => {
   try {
-    const response = await apiClient.get("/api/posts/all");
+    const response = await apiClient.get("/api/posts/all2");
     return response.data;
   } catch (error) {
     console.error("Failed to fetch posts:", error);
     throw error; // 에러를 상위로 전달
   }
 };
-// 특정 카테고리의 포스트 가져오기
-export const fetchPostsByCategory = async (categoryId) => {
-  try {
-    const response = await apiClient.get(`/api/posts?categoryId=${categoryId}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Failed to fetch posts for category ${categoryId}:`, error);
-    throw error; // 에러를 상위로 전달
-  }
-};
+
+// 모든 포스트 가져오기
+export const fetchPosts = async () => {
+    try {
+      const response = await apiClient.get("/api/posts/all");
+      return response.data;
+    } catch (error) {
+      console.error("Failed to fetch posts:", error);
+      throw error; // 에러를 상위로 전달
+    }
+  };
+
 // 포스트 추가하기
 export const addPost = async (post, token) => {
   try {

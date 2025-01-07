@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategoriesAsync, selectMainCategories, selectSubCategories, selectError } from '../../redux/categorySlice';
+import { fetchMainCategoriesAsync, fetchSubCategoriesAsync, selectMainCategories, selectSubCategories, selectError } from '../../redux/categorySlice';
 import { addPost } from '../../api/postapi'; // 포스트 추가 API 호출 함수 임포트
 import styles from '../../css/WritePost.module.css';
 
@@ -21,7 +21,8 @@ const WritePost = () => {
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     useEffect(() => {
-        dispatch(fetchCategoriesAsync()); // 카테고리 가져오기
+        dispatch(fetchMainCategoriesAsync()); // 메인 카테고리 가져오기
+        dispatch(fetchSubCategoriesAsync()); // 서브 카테고리 가져오기
     }, [dispatch]);
 
     const handleSubmit = async (e) => {
@@ -43,6 +44,7 @@ const WritePost = () => {
             await addPost(postDTO); // 포스트 추가 API 호출
 
             alert('포스트가 성공적으로 작성되었습니다!');
+            // 상태 초기화
             setTitle('');
             setImageUrl('');
             setDescription('');
@@ -89,10 +91,10 @@ const WritePost = () => {
                     >
                         <option value="" disabled>소분류 카테고리 선택</option>
                         {subCategories
-                            .filter(subCategory => subCategory.mainCategoryId === mainCategoryId)
+                            .filter(subCategory => subCategory.mainCategoryId === mainCategoryId) // 메인 카테고리에 따라 필터링
                             .map(subCategory => (
                                 <option key={subCategory.id} value={subCategory.id}>
-                                    {subCategory.categoryName}
+                                    {subCategory.subCategoryName} {/* 서브 카테고리 이름 */}
                                 </option>
                             ))}
                     </select>

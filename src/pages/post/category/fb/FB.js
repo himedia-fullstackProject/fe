@@ -1,6 +1,6 @@
 // src/components/CategoryPages/FB.js
 import React, { useEffect, useState } from 'react';
-import { fetchPosts } from '../../../../api/postapi'; // API에서 포스트를 가져오는 함수
+import { fetchPosts } from '../../../../api/postApi'; // API에서 포스트를 가져오는 함수
 import styles from '../../../../css/thbox.module.css';
 
 const FB = () => {

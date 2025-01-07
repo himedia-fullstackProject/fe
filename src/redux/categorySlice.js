@@ -1,11 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchCategories } from '../api/postapi'; // API 호출 함수 임포트
+import { fetchMainCategories, fetchSubCategories } from '../api/postapi'; // API 호출 함수 임포트
 
-// 비동기 thunk를 사용하여 API 호출
-export const fetchCategoriesAsync = createAsyncThunk(
-    'categories/fetchCategories',
+// 메인 카테고리 비동기 thunk
+export const fetchMainCategoriesAsync = createAsyncThunk(
+    'categories/fetchMainCategories',
     async () => {
-        const response = await fetchCategories(); // API 호출
+        const response = await fetchMainCategories(); // 메인 카테고리 API 호출
+        return response; // API 응답 반환
+    }
+);
+
+// 서브 카테고리 비동기 thunk
+export const fetchSubCategoriesAsync = createAsyncThunk(
+    'categories/fetchSubCategories',
+    async () => {
+        const response = await fetchSubCategories(); // 서브 카테고리 API 호출
         return response; // API 응답 반환
     }
 );
@@ -20,11 +29,16 @@ const categorySlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchCategoriesAsync.fulfilled, (state, action) => {
-                state.mainCategories = action.payload.mainCategories; // 메인 카테고리 업데이트
-                state.subCategories = action.payload.subCategories; // 서브 카테고리 업데이트
+            .addCase(fetchMainCategoriesAsync.fulfilled, (state, action) => {
+                state.mainCategories = action.payload; // 메인 카테고리 업데이트
             })
-            .addCase(fetchCategoriesAsync.rejected, (state, action) => {
+            .addCase(fetchSubCategoriesAsync.fulfilled, (state, action) => {
+                state.subCategories = action.payload; // 서브 카테고리 업데이트
+            })
+            .addCase(fetchMainCategoriesAsync.rejected, (state, action) => {
+                state.error = action.error.message; // 에러 메시지 저장
+            })
+            .addCase(fetchSubCategoriesAsync.rejected, (state, action) => {
                 state.error = action.error.message; // 에러 메시지 저장
             });
     },
