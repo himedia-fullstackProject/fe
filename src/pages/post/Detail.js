@@ -21,8 +21,8 @@ export default function Detail() {
     8: "health",
   };
 
-  const userList = useSelector((state) => state.user.userInfoList);
-  const userId = userList[0]?.user_id; // 안전하게 user_id 가져오기
+  const userList = useSelector((state) => state.user.userInfoList || []);
+  const userId = userList.length > 0 ? userList[0]?.user_id : null; // 안전하게 user_id 가져오기
   const jwtToken = useSelector((state) => state.user.jwtToken); // JWT 토큰 가져오기
 
   useEffect(() => {
@@ -99,8 +99,13 @@ export default function Detail() {
       <div className={style.actionButtons}>
         {userId && isUserPostAuthor() ? (
           <>
-            <button className={style.editButton} onClick={handleEditClick}>수정 하기</button>
-            <button className={style.deleteButton} onClick={handleDeleteClick}>삭제 하기</button> {/* 삭제하기 버튼 클릭 핸들러 추가 */}
+            <button className={style.editButton} onClick={handleEditClick}>
+              수정 하기
+            </button>
+            <button className={style.deleteButton} onClick={handleDeleteClick}>
+              삭제 하기
+            </button>{" "}
+            {/* 삭제하기 버튼 클릭 핸들러 추가 */}
           </>
         ) : (
           <p></p> // 버튼이 표시되지 않을 때 메시지

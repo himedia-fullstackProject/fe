@@ -8,8 +8,8 @@ import { likesUpdate } from "../api/likesApi";
 const LikeButton = ({ postId }) => {
   const dispatch = useDispatch();
   const likesList = useSelector((state) => state.user.likedList) || {};
-  const userList = useSelector((state) => state.user.userInfoList);
-  const userId = userList[0].user_id;
+  const userList = useSelector((state) => state.user.userInfoList || []);
+  const userId = userList.length > 0 ? userList[0]?.user_id : null;
   const isLiked = likesList[postId] === userId || false;
 
   console.log("likedList content:", likesList);

@@ -8,6 +8,7 @@ import style from "../css/mainvisual.module.css";
 export default function MainVisual() {
   return (
     <Swiper
+      className={style.swiper}
       spaceBetween={0}
       slidesPerView={1}
       loop={true}
