@@ -13,7 +13,7 @@ import {
   setUserPostList,
 } from "../redux/userSlice";
 import { fetchUserLikes } from "../api/likesApi";
-import { fetchPosts } from "../api/postApi";
+import { fetchPosts } from "../api/postapi";
 
 export default function Login({ onClose }) {
   const dispatch = useDispatch();

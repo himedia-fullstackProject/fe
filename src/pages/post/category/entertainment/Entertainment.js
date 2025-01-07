@@ -1,9 +1,10 @@
-// src/components/CategoryPages/Entertainment.js
 import React, { useEffect, useState } from "react";
-import { fetchPosts } from "../../../../api/postapi"; // API에서 포스트를 가져오는 함수
+import { fetchPost } from "../../../../api/postapi"; // API에서 포스트를 가져오는 함수
+import { useNavigate } from "react-router-dom"; // useNavigate 훅 임포트
 import styles from "../../../../css/thbox.module.css";
 
 const Entertainment = () => {
+  const navigate = useNavigate(); // navigate 함수 생성
   const mainCategoryId = 4; // 하드코딩된 mainCategoryId
   const [posts, setPosts] = useState([]); // 빈 배열로 초기화
   const [subCategories, setSubCategories] = useState([]); // 서브 카테고리 상태
@@ -12,7 +13,7 @@ const Entertainment = () => {
   useEffect(() => {
     const loadPostsAndSubCategories = async () => {
       try {
-        const postsResponse = await fetchPosts(); // 모든 포스트 가져오기
+        const postsResponse = await fetchPost(); // 모든 포스트 가져오기
         console.log(postsResponse); // API 응답 확인
 
         if (Array.isArray(postsResponse)) {
@@ -42,25 +43,31 @@ const Entertainment = () => {
     loadPostsAndSubCategories();
   }, [mainCategoryId]);
 
+  // 서브 카테고리 클릭 시 페이지 이동
+  const handleSubCategoryClick = (subCategoryId) => {
+    navigate(`/sub-category/${subCategoryId}`); // 해당 서브 카테고리 페이지로 이동
+  };
+
   // 서브 카테고리별 포스트 분류
   const postsBySubCategory = subCategories.reduce((acc, subCategory) => {
-    // 각 서브 카테고리에 대해 mainCategoryId와 subCategoryId가 일치하는 포스트만 필터링
     const filteredPosts = posts.filter(
       (post) =>
         post.subCategoryId === subCategory.id &&
         post.mainCategoryId === mainCategoryId
     );
 
-    // 작성일 기준으로 정렬 (가정: post.createdAt이 작성일을 나타내는 필드)
     const sortedPosts = filteredPosts.sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
 
-    // 최근 작성된 포스트 3개만 선택
     acc[subCategory.id] = sortedPosts.slice(0, 3);
 
     return acc;
   }, {});
+
+  const handlePostClick = (id) => {
+    navigate(`/detail/${id}`); // 포스트 ID를 기반으로 디테일 페이지로 이동
+  };
 
   return (
     <div className={styles.box_container}>
@@ -70,10 +77,16 @@ const Entertainment = () => {
       )}
       {subCategories.map((subCategory) => (
         <div key={subCategory.id}>
-          <h3 className={styles.title}>{subCategory.name}</h3>
+          <h3
+            className={styles.title}
+            onClick={() => handleSubCategoryClick(subCategory.id)} // 클릭 시 서브 카테고리 페이지로 이동
+            style={{ cursor: "pointer" }} // 클릭 가능하도록 커서 스타일 변경
+          >
+            {subCategory.name}
+          </h3>
           <div className={styles.grid}>
             {postsBySubCategory[subCategory.id]?.map((post) => (
-              <div key={post.id} className={styles.post}>
+              <div key={post.id} className={styles.post} onClick={() => handlePostClick(post.id)}>
                 <img src={post.image} alt={post.title} className={styles.img} />
                 <h4 className={styles.post_title}>{post.title}</h4>
                 <p className={styles.author}>작성자: {post.username}</p>

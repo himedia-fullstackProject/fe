@@ -1,7 +1,8 @@
 // src/components/CategoryPages/Health.js
 import React, { useEffect, useState } from "react";
-import { fetchPosts } from "../../../../api/postapi"; // 모든 포스트를 가져오는 함수
+import { fetchPost } from "../../../../api/postapi"; // 모든 포스트를 가져오는 함수
 import styles from "../../../../css/thbox.module.css";
+import { useNavigate } from "react-router-dom"; // useNavigate 훅 임포트
 
 const Health = () => {
   const mainCategoryId = 3; // 하드코딩된 mainCategoryId
@@ -11,11 +12,12 @@ const Health = () => {
 
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const postsPerPage = 6; // 페이지당 포스트 수
+  const navigate = useNavigate(); // navigate 함수 생성
 
   useEffect(() => {
     const loadPostsAndSubCategories = async () => {
       try {
-        const postsResponse = await fetchPosts(); // 모든 포스트 가져오기
+        const postsResponse = await fetchPost(); // 모든 포스트 가져오기
         console.log(postsResponse); // API 응답 확인
 
         if (Array.isArray(postsResponse)) {
@@ -89,6 +91,10 @@ const Health = () => {
   // 페이지 변경 핸들러
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handlePostClick = (id) => {
+    navigate(`/detail/${id}`); // 포스트 ID를 기반으로 디테일 페이지로 이동
+  };
+
   return (
     <div className={styles.box_container}>
       {error && <p className={styles.error}>{error}</p>}
@@ -100,7 +106,7 @@ const Health = () => {
           <h3 className={styles.title}>{subCategory.name}</h3>
           <div className={styles.grid}>
             {currentPostsBySubCategory[subCategory.id]?.map((post) => (
-              <div key={post.id} className={styles.post}>
+              <div key={post.id} className={styles.post} onClick={() => handlePostClick(post.id)}>
                 <img src={post.image} alt={post.title} className={styles.img} />
                 <h4 className={styles.post_title}>{post.title}</h4>
                 <p className={styles.author}>작성자: {post.username}</p>

@@ -2,76 +2,55 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import style from "../../css/detail.module.css";
-import { fetchPostDetail } from "../../api/postapi";
+import { fetchPostDetail } from "../../api/postapi"; 
 import LikeButton from "../../components/LikeButton";
-import { getCategory } from "../../api/postapi";
 
 export default function Detail() {
   const { id } = useParams();
-  const [postDetail, setPostDetail] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [postDetail, setPostDetail] = useState(null);
   const userId = useSelector((state) => state.user.currentUser?.userId);
-  const [categories, setCategories] = useState({
-    mainCategories: [],
-    subCategories: [],
-  });
+
+  // 하드코딩된 서브카테고리 이름
+  const subCategoryNames = {
+    1: "fashion",
+    2: "beauty",
+    3: "recipe",
+    4: "hotplace",
+    5: "love",
+    6: "travel",
+    7: "etc",
+    8: "health", 
+  };
 
   useEffect(() => {
     const getPostDetail = async () => {
       try {
         const postData = await fetchPostDetail(id);
         setPostDetail(postData);
-        console.log("포스트디테일", postData);
       } catch (error) {
-        console.error("벌레컷 ", error);
-      } finally {
-        setLoading(false);
+        console.error("포스트 로딩 실패:", error);
       }
     };
+
     getPostDetail();
   }, [id]);
 
-  // 카테고리 정보 가져오기
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const categoryData = await getCategory();
-        console.log("서브카테고리?", postDetail.subCategoryId);
-        setCategories(categoryData);
-      } catch (error) {
-        console.error("카테고리 정보 로딩 실패:", error);
-      }
-    };
-    getCategories();
-  }, []);
-
-  // 카테고리 이름 찾기
-  const getCategoryName = () => {
-    const subCategory = categories.subCategories.find(
-      (cat) => cat.id === postDetail.subCategoryId
-    );
-
-    if (subCategory) {
-      const mainCategory = categories.mainCategories.find(
-        (cat) => cat.id === subCategory.mainCategoryId
-      );
-      return `${mainCategory?.name} > ${subCategory.name}`;
-    }
-    return "";
-  };
-
-  if (loading) return <div>로딩중...</div>;
   if (!postDetail) return <div>게시글을 찾을 수 없습니다.</div>;
+
+  // 서브카테고리 ID로 서브카테고리 이름 가져오기
+  const getSubCategoryName = () => {
+    return subCategoryNames[postDetail.subCategoryId] || ''; // 해당 ID에 맞는 이름 반환
+  };
 
   return (
     <div className={style.detailContainer}>
-      <div className={style.category}>#{getCategoryName}</div>
+      <div className={style.category}>#{getSubCategoryName()}</div> {/* 서브카테고리 이름 출력 */}
 
       <div className={style.postHeader}>
         <h1 className={style.title}>{postDetail.title}</h1>
 
         <div className={style.postInfo}>
-          <span>by{postDetail.username}</span>
+          <span>by {postDetail.username}</span>
           <span className={style.date}>{postDetail.createdAt}</span>
           <LikeButton postId={id} userId={userId} likes={postDetail.likes} />
         </div>

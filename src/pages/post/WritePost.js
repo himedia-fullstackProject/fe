@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMainCategoriesAsync, fetchSubCategoriesAsync, selectMainCategories, selectSubCategories, selectError } from '../../redux/categorySlice';
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 임포트
+import { selectError } from '../../redux/categorySlice';
 import { addPost } from '../../api/postapi'; // 포스트 추가 API 호출 함수 임포트
 import styles from '../../css/WritePost.module.css';
 
 const WritePost = () => {
     const dispatch = useDispatch();
-    const mainCategories = useSelector(selectMainCategories);
-    const subCategories = useSelector(selectSubCategories);
+    const navigate = useNavigate(); // navigate 함수 생성
     const error = useSelector(selectError);
 
     const [title, setTitle] = React.useState('');
@@ -20,10 +20,24 @@ const WritePost = () => {
     const [subCategoryId, setSubCategoryId] = React.useState('');
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-    useEffect(() => {
-        dispatch(fetchMainCategoriesAsync()); // 메인 카테고리 가져오기
-        dispatch(fetchSubCategoriesAsync()); // 서브 카테고리 가져오기
-    }, [dispatch]);
+    // 하드코딩된 카테고리 데이터
+    const mainCategories = [
+        { id: '1', categoryName: 'fashion/beauty' },
+        { id: '2', categoryName: 'F&B' },
+        { id: '3', categoryName: 'health' },
+        { id: '4', categoryName: 'entertainment' },
+    ];
+
+    const subCategories = [
+        { id: '1', subCategoryName: 'fashion', mainCategoryId: '1' },
+        { id: '2', subCategoryName: 'beauty', mainCategoryId: '1' },
+        { id: '3', subCategoryName: 'recipe', mainCategoryId: '2' },
+        { id: '4', subCategoryName: 'hotplace', mainCategoryId: '2' },
+        { id: '5', subCategoryName: 'love', mainCategoryId: '4' },
+        { id: '6', subCategoryName: 'travel', mainCategoryId: '4' },
+        { id: '7', subCategoryName: 'etc', mainCategoryId: '4' },
+        { id: '8', subCategoryName: 'health', mainCategoryId: '3' },
+    ];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,15 +58,7 @@ const WritePost = () => {
             await addPost(postDTO); // 포스트 추가 API 호출
 
             alert('포스트가 성공적으로 작성되었습니다!');
-            // 상태 초기화
-            setTitle('');
-            setImageUrl('');
-            setDescription('');
-            setTag1('');
-            setTag2('');
-            setTag3('');
-            setMainCategoryId('');
-            setSubCategoryId('');
+            navigate('/'); // 홈으로 리다이렉트
         } catch (error) {
             console.error("포스트 작성 중 오류 발생:", error);
         } finally {
@@ -63,7 +69,7 @@ const WritePost = () => {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>#게시글 작성하기</h1>
-            {error && <div className={styles.error}>{error}</div>}
+            {/* {error && <div className={styles.error}>{error}</div>} */}
             <form onSubmit={handleSubmit}>
                 <div className={styles.categoryContainer}>
                     <select

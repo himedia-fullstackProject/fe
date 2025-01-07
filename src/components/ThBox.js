@@ -1,6 +1,6 @@
 // src/components/Thbox.js
 import React, { useEffect, useState } from "react";
-import { fetchPosts } from "../api/postapi"; // API에서 포스트를 가져오는 함수
+import { fetchPost } from "../api/postapi"; // API에서 포스트를 가져오는 함수
 import { useNavigate } from "react-router-dom"; // useNavigate 임포트
 import styles from "../css/thbox.module.css";
 
@@ -13,7 +13,7 @@ const Thbox = () => {
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        const postsResponse = await fetchPosts();
+        const postsResponse = await fetchPost();
         console.log(postsResponse); // API 응답 확인
 
         // 응답의 content 배열에서 포스트 데이터 추출
@@ -53,6 +53,10 @@ const Thbox = () => {
     navigate(`/category/${categoryId}`); // 해당 카테고리 페이지로 이동
   };
 
+  const handlePostClick = (id) => {
+    navigate(`/detail/${id}`); // 포스트 ID를 기반으로 디테일 페이지로 이동
+  };
+
   return (
     <div className={styles.box_container}>
       {error && <p className={styles.error}>{error}</p>}
@@ -67,7 +71,7 @@ const Thbox = () => {
           </h3>
           <div className={styles.grid}>
             {postsByCategory[category.id]?.slice(0, 3).map((post) => (
-              <div key={post.id} className={styles.post}>
+              <div key={post.id} className={styles.post} onClick={() => handlePostClick(post.id)}>
                 <img src={post.image} alt={post.title} className={styles.img} />
                 <h4 className={styles.post_title}>{post.title}</h4>
                 <p className={styles.author}>작성자: {post.username}</p>

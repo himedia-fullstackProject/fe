@@ -44,16 +44,6 @@ export default function Header() {
         </NavLink>
         <div className={style.nav_container}>
           <NavLink
-            to="/write"
-            className={({ isActive }) =>
-              isActive
-                ? `${style.navshortbtn} ${style.active}`
-                : style.navshortbtn
-            }
-          >
-            write
-          </NavLink>
-          <NavLink
             to="/fashion&beauty"
             className={({ isActive }) =>
               isActive ? `${style.navbtn} ${style.active}` : style.navbtn

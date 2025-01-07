@@ -36,9 +36,11 @@ const categorySlice = createSlice({
                 state.subCategories = action.payload; // 서브 카테고리 업데이트
             })
             .addCase(fetchMainCategoriesAsync.rejected, (state, action) => {
+                console.error("메인 카테고리 가져오기 실패:", action.error); // 에러 메시지 로그
                 state.error = action.error.message; // 에러 메시지 저장
             })
             .addCase(fetchSubCategoriesAsync.rejected, (state, action) => {
+                console.error("서브 카테고리 가져오기 실패:", action.error); // 에러 메시지 로그
                 state.error = action.error.message; // 에러 메시지 저장
             });
     },
