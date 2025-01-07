@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ThBox from "../../components/ThBox";
 import style from "../../css/thbox.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../../api/postApi";
+import { fetchPosts } from "../../api/postapi";
 import { setUserPostList } from "../../redux/userSlice";
 
 export default function UserPostLists() {

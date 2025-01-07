@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../css/search.module.css";
-import { fetchSearchPosts, fetchSearchTagPosts } from "../api/postApi";
+import { fetchSearchPosts, fetchSearchTagPosts } from "../api/postapi";
 
 export default function Search({ onClose }) {
   const [searchTerm, setSearchTerm] = useState("");

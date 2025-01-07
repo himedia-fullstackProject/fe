@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import Post from "./Post";
 import style from "../../css/searchResult.module.css";
-import { fetchSearchPosts } from "../../api/postApi";
+import { fetchSearchPosts } from "../../api/postapi";
 
 export default function SearchResult() {
   const location = useLocation();

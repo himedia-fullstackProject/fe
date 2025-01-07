@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import style from "../../css/detail.module.css";
-import { fetchPostDetail } from "../../api/postApi";
+import { fetchPostDetail } from "../../api/postapi";
 import LikeButton from "../../components/LikeButton";
-import { getCategory } from "../../api/postApi";
+import { getCategory } from "../../api/postapi";
 
 export default function Detail() {
   const { id } = useParams();

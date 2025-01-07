@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import style from "../../css/searchResult.module.css";
-import { fetchSearchTagPosts } from "../../api/postApi";
+import { fetchSearchTagPosts } from "../../api/postapi";
 
 export default function HashTagSearchResult() {
   const location = useLocation();
