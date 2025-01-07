@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchPost } from "../../../../../api/postapi"; // API에서 포스트를 가져오는 함수
 import styles from "../../../../../css/thbox.module.css";
 import { useNavigate } from "react-router-dom"; // useNavigate 훅 임포트
+import BurgerMenu from "../../../../../components/BurgerMenu";
 
 const Beauty = () => {
   const subCategoryId = 2; // 하드코딩된 서브 카테고리 ID
@@ -45,6 +46,7 @@ const Beauty = () => {
 
   return (
     <div className={styles.box_container}>
+      <BurgerMenu />
       {error && <p className={styles.error}>{error}</p>}
       {currentPosts.length === 0 && <p>포스트가 없습니다.</p>}
 
