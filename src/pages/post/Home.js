@@ -8,9 +8,7 @@ export default function Home() {
   return (
     <div>
       <MainVisual />
-      <div className={style.box_container}>
-        <ThBox />
-      </div>
+      <ThBox />
     </div>
   );
 }
