@@ -7,28 +7,26 @@ import { likesUpdate } from "../api/likesApi";
 
 const LikeButton = ({ postId, userId }) => {
   const dispatch = useDispatch();
-  const likedList = useSelector((state) => state.user.likedList) || [];
-
-  const isLiked = likedList?.some(
-    (like) => like.postId === postId && like.userId === userId
-  );
+  const likesList = useSelector((state) => state.user.likedList) || {};
+  const isLiked = likesList[postId] === userId || false;
+  console.log("likedList type:", typeof likesList);
+  console.log("likedList content:", likesList);
 
   const handleLikeClick = async (e) => {
-    e.preventDefault(); // Link 내부에서 사용될 때 페이지 이동 방지
+    e.preventDefault();
     if (!userId) {
       alert("로그인이 필요한 서비스입니다.");
       return;
     }
-
     try {
       await likesUpdate(userId, postId);
-      // 현재 좋아요 목록을 기반으로 업데이트
-      const newLikedList = isLiked
-        ? likedList.filter(
-            (like) => !(like.postId === postId && like.userId === userId)
-          )
-        : [...likedList, { postId, userId }];
-
+      // 객체 형태로 업데이트
+      const newLikedList = { ...likesList };
+      if (isLiked) {
+        delete newLikedList[postId];
+      } else {
+        newLikedList[postId] = userId;
+      }
       dispatch(setLikesList(newLikedList));
     } catch (error) {
       console.error("좋아요 처리 실패:", error);

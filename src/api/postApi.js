@@ -104,3 +104,13 @@ export const fetchPostDetail = async (id) => {
     throw error;
   }
 };
+
+export const getCategory = async () => {
+  try {
+    const res = await apiClient.get(`/api/categories`);
+    return res.data;
+  } catch (error) {
+    console.error("카테고리 살패", error);
+    throw error;
+  }
+};

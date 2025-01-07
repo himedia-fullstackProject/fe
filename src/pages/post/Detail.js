@@ -4,18 +4,24 @@ import { useSelector } from "react-redux";
 import style from "../../css/detail.module.css";
 import { fetchPostDetail } from "../../api/postApi";
 import LikeButton from "../../components/LikeButton";
+import { getCategory } from "../../api/postApi";
 
 export default function Detail() {
   const { id } = useParams();
   const [postDetail, setPostDetail] = useState([]);
   const [loading, setLoading] = useState(true);
   const userId = useSelector((state) => state.user.currentUser?.userId);
+  const [categories, setCategories] = useState({
+    mainCategories: [],
+    subCategories: [],
+  });
 
   useEffect(() => {
     const getPostDetail = async () => {
       try {
         const postData = await fetchPostDetail(id);
         setPostDetail(postData);
+        console.log("포스트디테일", postData);
       } catch (error) {
         console.error("벌레컷 ", error);
       } finally {
@@ -25,12 +31,41 @@ export default function Detail() {
     getPostDetail();
   }, [id]);
 
+  // 카테고리 정보 가져오기
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const categoryData = await getCategory();
+        console.log("서브카테고리?", postDetail.subCategoryId);
+        setCategories(categoryData);
+      } catch (error) {
+        console.error("카테고리 정보 로딩 실패:", error);
+      }
+    };
+    getCategories();
+  }, []);
+
+  // 카테고리 이름 찾기
+  const getCategoryName = () => {
+    const subCategory = categories.subCategories.find(
+      (cat) => cat.id === postDetail.subCategoryId
+    );
+
+    if (subCategory) {
+      const mainCategory = categories.mainCategories.find(
+        (cat) => cat.id === subCategory.mainCategoryId
+      );
+      return `${mainCategory?.name} > ${subCategory.name}`;
+    }
+    return "";
+  };
+
   if (loading) return <div>로딩중...</div>;
   if (!postDetail) return <div>게시글을 찾을 수 없습니다.</div>;
 
   return (
     <div className={style.detailContainer}>
-      <div className={style.category}>#{postDetail.subCategory}</div>
+      <div className={style.category}>#{getCategoryName}</div>
 
       <div className={style.postHeader}>
         <h1 className={style.title}>{postDetail.title}</h1>
