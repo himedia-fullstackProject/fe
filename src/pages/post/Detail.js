@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // useNavigate 임포트
 import { useSelector } from "react-redux";
 import style from "../../css/detail.module.css";
-import { fetchPostDetail } from "../../api/postapi";
+import { fetchPostDetail, deletePost } from "../../api/postapi"; // deletePost API 가져오기
 import LikeButton from "../../components/LikeButton";
 
 export default function Detail() {
   const { id } = useParams();
+  const navigate = useNavigate(); // navigate 훅 사용
   const [postDetail, setPostDetail] = useState(null);
-  const userId = useSelector((state) => state.user.currentUser?.userId);
 
-  // 하드코딩된 서브카테고리 이름
   const subCategoryNames = {
     1: "fashion",
     2: "beauty",
@@ -22,11 +21,16 @@ export default function Detail() {
     8: "health",
   };
 
+  const userList = useSelector((state) => state.user.userInfoList);
+  const userId = userList[0]?.user_id; // 안전하게 user_id 가져오기
+  const jwtToken = useSelector((state) => state.user.jwtToken); // JWT 토큰 가져오기
+
   useEffect(() => {
     const getPostDetail = async () => {
       try {
         const postData = await fetchPostDetail(id);
         setPostDetail(postData);
+        console.log("포스트 데이터:", postData); // 포스트 데이터 확인
       } catch (error) {
         console.error("포스트 로딩 실패:", error);
       }
@@ -37,15 +41,35 @@ export default function Detail() {
 
   if (!postDetail) return <div>게시글을 찾을 수 없습니다.</div>;
 
-  // 서브카테고리 ID로 서브카테고리 이름 가져오기
   const getSubCategoryName = () => {
-    return subCategoryNames[postDetail.subCategoryId] || ""; // 해당 ID에 맞는 이름 반환
+    return subCategoryNames[postDetail.subCategoryId] || "";
+  };
+
+  const isUserPostAuthor = () => {
+    return String(userId) === String(postDetail.userId);
+  };
+
+  const handleEditClick = () => {
+    navigate(`/edit/${id}`); // 수정 페이지로 이동
+  };
+
+  const handleDeleteClick = async () => {
+    const confirmDelete = window.confirm("이 게시글을 정말 삭제하시겠습니까?");
+    if (confirmDelete) {
+      try {
+        await deletePost(id, jwtToken); // 포스트 삭제 요청
+        alert("게시글이 삭제되었습니다.");
+        navigate("/"); // 홈으로 리다이렉트
+      } catch (error) {
+        console.error("게시글 삭제 실패:", error);
+        alert("게시글 삭제에 실패했습니다.");
+      }
+    }
   };
 
   return (
     <div className={style.detailContainer}>
-      <div className={style.category}>#{getSubCategoryName()}</div>{" "}
-      {/* 서브카테고리 이름 출력 */}
+      <div className={style.category}>#{getSubCategoryName()}</div>
       <div className={style.postHeader}>
         <h1 className={style.title}>{postDetail.title}</h1>
 
@@ -73,8 +97,14 @@ export default function Detail() {
         </div>
       </div>
       <div className={style.actionButtons}>
-        <button className={style.editButton}>수정 하기</button>
-        <button className={style.deleteButton}>삭제 하기</button>
+        {userId && isUserPostAuthor() ? (
+          <>
+            <button className={style.editButton} onClick={handleEditClick}>수정 하기</button>
+            <button className={style.deleteButton} onClick={handleDeleteClick}>삭제 하기</button> {/* 삭제하기 버튼 클릭 핸들러 추가 */}
+          </>
+        ) : (
+          <p></p> // 버튼이 표시되지 않을 때 메시지
+        )}
       </div>
     </div>
   );

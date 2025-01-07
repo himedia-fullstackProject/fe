@@ -33,20 +33,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />}></Route>
-            <Route path="fashion&beauty" element={<FashionBeauty />}></Route>
-            <Route path="fashion" element={<Fashion />}></Route>
-            <Route path="beauty" element={<Beauty />}></Route>
-            <Route path="f&b" element={<FB />}></Route>
-            <Route path="recipe" element={<Recipe />}></Route>
-            <Route path="hotplace" element={<HotPlace />}></Route>
-            <Route path="health" element={<Health />}></Route>
-            <Route path="entertainment" element={<Entertainment />}></Route>
-            <Route path="love" element={<Love />}></Route>
-            <Route path="travel" element={<Travel />}></Route>
-            <Route path="etc" element={<Etc />}></Route>
             <Route path="detail/:id" element={<Detail />}></Route>
             <Route path="write" element={<WritePost />}></Route>
-            <Route path="update/:id" element={<Update />}></Route>
+            <Route path="edit/:id" element={<Update />}></Route>
             <Route path="mypage" element={<MyPage />}></Route>
             <Route path="userlikes" element={<UserLikesPage />}></Route>
             <Route path="userpostlists" element={<UserPostLists />}></Route>
@@ -54,6 +43,17 @@ function App() {
             <Route path="login" element={<Login />}></Route>
             <Route path="search/result" element={<SearchResult />} />
             <Route path="search/tag" element={<HashTagSearchResult />} />
+            <Route path="/category/4" element={<Entertainment />} />
+            <Route path="/category/1" element={<FashionBeauty />} />
+            <Route path="/category/3" element={<Health />} />
+            <Route path="/category/2" element={<FB />} />
+            <Route path="/sub-category/1" element={<Fashion />} />
+            <Route path="/sub-category/2" element={<Beauty />} />
+            <Route path="/sub-category/3" element={<Recipe />} />
+            <Route path="/sub-category/4" element={<HotPlace />} />
+            <Route path="/sub-category/5" element={<Love />} />
+            <Route path="/sub-category/6" element={<Travel />} />
+            <Route path="/sub-category/7" element={<Etc />} />
           </Route>
         </Routes>
       </BrowserRouter>
