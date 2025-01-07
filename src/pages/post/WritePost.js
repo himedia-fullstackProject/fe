@@ -1,33 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import apiClient from '../../api/api'; 
-import errorDisplay from '../../api/errorDisplay';
+import { fetchCategoriesAsync, selectMainCategories, selectSubCategories, selectError } from '../../redux/categorySlice';
+import { addPost } from '../../api/postapi'; // 포스트 추가 API 호출 함수 임포트
 import styles from '../../css/WritePost.module.css';
 
 const WritePost = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const token = useSelector((state) => state.user.jwtToken);
-    const [title, setTitle] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
-    const [description, setDescription] = useState('');
-    const [tag1, setTag1] = useState('');
-    const [tag2, setTag2] = useState('');
-    const [tag3, setTag3] = useState('');
-    const [mainCategoryId, setMainCategoryId] = useState('');
-    const [subCategoryId, setSubCategoryId] = useState('');
-    const [error, setError] = useState(null);
+    const mainCategories = useSelector(selectMainCategories);
+    const subCategories = useSelector(selectSubCategories);
+    const error = useSelector(selectError);
+
+    const [title, setTitle] = React.useState('');
+    const [imageUrl, setImageUrl] = React.useState('');
+    const [description, setDescription] = React.useState('');
+    const [tag1, setTag1] = React.useState('');
+    const [tag2, setTag2] = React.useState('');
+    const [tag3, setTag3] = React.useState('');
+    const [mainCategoryId, setMainCategoryId] = React.useState('');
+    const [subCategoryId, setSubCategoryId] = React.useState('');
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     useEffect(() => {
-        // 로그인 상태 확인
-        if (!token) {
-            navigate('/login'); // 로그인 페이지로 리다이렉트
-        }
-    }, [token, navigate]);
+        dispatch(fetchCategoriesAsync()); // 카테고리 가져오기
+    }, [dispatch]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true); // 제출 상태 설정
+
         try {
             const postDTO = {
                 title,
@@ -40,14 +40,9 @@ const WritePost = () => {
                 subCategoryId,
             };
 
-            await apiClient.post('/api/posts', postDTO, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            await addPost(postDTO); // 포스트 추가 API 호출
 
             alert('포스트가 성공적으로 작성되었습니다!');
-            // 입력 필드 초기화
             setTitle('');
             setImageUrl('');
             setDescription('');
@@ -56,17 +51,11 @@ const WritePost = () => {
             setTag3('');
             setMainCategoryId('');
             setSubCategoryId('');
-            navigate('/'); // 홈으로 리다이렉트
         } catch (error) {
-            const errorMessage = errorDisplay(error);
-            console.error("포스트 작성 중 오류 발생:", errorMessage);
-            setError(errorMessage);
+            console.error("포스트 작성 중 오류 발생:", error);
+        } finally {
+            setIsSubmitting(false); // 제출 상태 초기화
         }
-    };
-
-    const handleUrlChange = (e) => {
-        const url = e.target.value;
-        setImageUrl(url);
     };
 
     return (
@@ -75,22 +64,38 @@ const WritePost = () => {
             {error && <div className={styles.error}>{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className={styles.categoryContainer}>
-                    <input
+                    <select
                         className={`${styles.input} ${styles.categoryInput}`}
-                        type="number"
-                        placeholder="#대분류 카테고리"
                         value={mainCategoryId}
-                        onChange={(e) => setMainCategoryId(e.target.value)}
+                        onChange={(e) => {
+                            setMainCategoryId(e.target.value);
+                            setSubCategoryId(''); // 메인 카테고리 변경 시 서브 카테고리 초기화
+                        }}
                         required
-                    />
-                    <input
+                    >
+                        <option value="" disabled>대분류 카테고리 선택</option>
+                        {mainCategories.map(category => (
+                            <option key={category.id} value={category.id}>
+                                {category.categoryName}
+                            </option>
+                        ))}
+                    </select>
+
+                    <select
                         className={`${styles.input} ${styles.categoryInput}`}
-                        type="number"
-                        placeholder="#소분류 카테고리"
                         value={subCategoryId}
                         onChange={(e) => setSubCategoryId(e.target.value)}
                         required
-                    />
+                    >
+                        <option value="" disabled>소분류 카테고리 선택</option>
+                        {subCategories
+                            .filter(subCategory => subCategory.mainCategoryId === mainCategoryId)
+                            .map(subCategory => (
+                                <option key={subCategory.id} value={subCategory.id}>
+                                    {subCategory.categoryName}
+                                </option>
+                            ))}
+                    </select>
                 </div>
 
                 <input
@@ -101,13 +106,13 @@ const WritePost = () => {
                     onChange={(e) => setTitle(e.target.value)}
                     required
                 />
-                
+
                 <input
                     className={styles.input}
                     type="text"
                     placeholder="#이미지 주소를 입력해주세요"
                     value={imageUrl}
-                    onChange={handleUrlChange}
+                    onChange={(e) => setImageUrl(e.target.value)}
                 />
 
                 {imageUrl && (
@@ -148,9 +153,9 @@ const WritePost = () => {
                         value={tag3}
                         onChange={(e) => setTag3(e.target.value)}
                     />
-                </div>                
+                </div>
                 <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                    <button className={styles.submitButton} type="submit">등록 하기</button>
+                    <button className={styles.submitButton} type="submit" disabled={isSubmitting}>등록 하기</button>
                 </div>
             </form>
         </div>

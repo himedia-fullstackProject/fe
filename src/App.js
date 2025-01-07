@@ -26,7 +26,6 @@ import SearchResult from "./pages/result/SearchResult";
 import HashTagSearchResult from "./pages/result/HashTagSearchResult";
 import CategoryPage from "./pages/post/category/CategoryPage"; // 카테고리 페이지
 import SubCategoryPage from "./pages/post/category/SubCategoryPage"; // 서브 카테고리 페이지
-import ThBox from "./components/ThBox";
 
 function App() {
   return (
@@ -48,7 +47,7 @@ function App() {
               <Route path="etc" element={<Etc />}></Route>
             </Route>
             {/* 포스트 관련 라우트 추가 */}
-            <Route path="posts" element={<PostList />} /> {/* 포스트 목록 */}
+            <Route path="postlist" element={<PostList />} /> {/* 포스트 목록 */}
             <Route path="write" element={<WritePost />} /> {/* 포스트 작성 */}
             <Route path="detail/:id" element={<Detail />} /> {/* 포스트 세부정보 */}
             <Route path="update/:id" element={<Update />} /> {/* 포스트 업데이트 */}
@@ -59,13 +58,11 @@ function App() {
             <Route path="signup" element={<SignUp />}></Route>
             <Route path="login" element={<Login />}></Route>
             <Route path="search/result" element={<SearchResult />} />
-            <Route
-              path="hashtag-search-result"
-              element={<HashTagSearchResult />}
-              
-            />
-            <Route path="category/:categoryId" element={<CategoryPage />} /> {/* 카테고리 페이지 */}
-            <Route path="category/:categoryId/:subCategoryId" element={<SubCategoryPage />} /> {/* 서브 카테고리 페이지 */}
+            <Route path="hashtag-search-result" element={<HashTagSearchResult />}/>
+            <Route path="/category/4" element={<Entertainment />} />
+            <Route path="/category/1" element={<FashionBeauty />} />
+            <Route path="/category/3" element={<Health />} />
+            <Route path="/category/2" element={<FB />} />
           </Route>
         </Routes>
       </BrowserRouter>

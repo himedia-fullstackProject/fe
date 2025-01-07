@@ -1,33 +1,40 @@
 // src/components/PostList.js
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { fetchPosts } from '../../api/postapi';
 
-const PostList = ({ categoryId }) => {
-  const posts = useSelector((state) => state.posts.posts); // 리덕스에서 포스트 목록 가져오기
-  const error = useSelector((state) => state.posts.error); // 에러 상태 가져오기
+const PostList = () => {
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState(null); // 에러 상태 추가
 
-  if (error) {
-    return <p>Error: {error}</p>; // 에러 메시지 표시
-  }
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetchPosts();
+        // API 응답의 content를 사용
+        if (Array.isArray(response.content)) {
+          setPosts(response.content);
+        } else {
+          console.error('Fetched data is not an array:', response.content);
+          setError('데이터 형식이 올바르지 않습니다.');
+        }
+      } catch (error) {
+        console.error("Failed to load data:", error);
+        setError('포스트를 불러오는 데 실패했습니다.');
+      }
+    };
 
-  // 카테고리 ID에 따라 포스트 필터링
-  const filteredPosts = categoryId
-    ? posts.filter((post) => post.categoryId === categoryId).slice(0, 3) // 3개씩 표시
-    : posts; // 카테고리 ID가 없으면 모든 포스트 표시
+    loadData();
+  }, []);
 
   return (
-    <div className="post-list">
-      {filteredPosts.length === 0 ? (
-        <p>No posts available.</p> // 포스트가 없을 때 메시지 표시
-      ) : (
-        filteredPosts.map((post) => (
-          <div key={post.id} className="post-item">
-            <img src={post.imageUrl} alt={post.title} />
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
-          </div>
-        ))
-      )}
+    <div>
+      <h2>모든 포스트</h2>
+      {error && <p>{error}</p>} {/* 에러 메시지 표시 */}
+      <ul>
+        {Array.isArray(posts) && posts.map(post => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
     </div>
   );
 };

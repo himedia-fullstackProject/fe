@@ -92,14 +92,14 @@ body {
 .categoryContainer {
   display: flex;
   justify-content: space-between;
-  width: 66%;
+  width: 70%;
   /* margin: 10px 0; 여백 추가 */
 }
 
 .categoryInput {
   flex: 1; /* 두 입력 필드가 같은 비율로 차지하도록 설정 */
   margin-right: 10px; /* 오른쪽 여백 추가 */
-  height: 35px; /* 높이를 조정 */
+  height: 40px; /* 높이를 조정 */
 }
 
 .categoryInput:last-child {
