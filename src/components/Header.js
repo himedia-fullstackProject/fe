@@ -44,7 +44,7 @@ export default function Header() {
         </NavLink>
         <div className={style.nav_container}>
           <NavLink
-            to="/fashion&beauty"
+            to="/category/1"
             className={({ isActive }) =>
               isActive ? `${style.navbtn} ${style.active}` : style.navbtn
             }
@@ -52,7 +52,7 @@ export default function Header() {
             Fashion&Beauty
           </NavLink>
           <NavLink
-            to="/f&b"
+            to="/category/2"
             className={({ isActive }) =>
               isActive
                 ? `${style.navshortbtn} ${style.active}`
@@ -62,7 +62,7 @@ export default function Header() {
             F&B
           </NavLink>
           <NavLink
-            to="/health"
+            to="/category/3"
             className={({ isActive }) =>
               isActive
                 ? `${style.navshortbtn} ${style.active}`
@@ -72,7 +72,7 @@ export default function Header() {
             Health
           </NavLink>
           <NavLink
-            to="/entertainment"
+            to="/category/4"
             className={({ isActive }) =>
               isActive ? `${style.navbtn} ${style.active}` : style.navbtn
             }

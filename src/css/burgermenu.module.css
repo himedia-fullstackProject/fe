@@ -1,6 +1,7 @@
 .burger_menu_container {
   position: relative;
   width: fit-content;
+  top: 30px;
 }
 
 .burger_button {
