@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchPosts } from '../api/postapi'; // API에서 포스트를 가져오는 함수
+import { fetchUserPosts } from "../api/postapi"; // API에서 포스트를 가져오는 함수
 
-export const fetchPostsAsync = createAsyncThunk(
-  "posts/fetchPosts",
+export const fetchUserPostsAsync = createAsyncThunk(
+  "posts/fetchUserPosts",
   async () => {
-    const response = await fetchPosts();
+    const response = await fetchUserPosts();
     return response.content; // API 응답에서 포스트 목록 반환
   }
 );
@@ -46,11 +46,11 @@ const postSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPostsAsync.fulfilled, (state, action) => {
+      .addCase(fetchUserPostsAsync.fulfilled, (state, action) => {
         state.posts = action.payload; // 포스트 목록 설정
         state.error = null; // 에러 초기화
       })
-      .addCase(fetchPostsAsync.rejected, (state, action) => {
+      .addCase(fetchUserPostsAsync.rejected, (state, action) => {
         state.error = "포스트를 불러오는 데 실패했습니다."; // 에러 메시지 설정
       });
   },

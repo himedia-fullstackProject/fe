@@ -1,7 +1,7 @@
 // Post.js
 import React from "react";
 import { Link } from "react-router-dom";
-import style from "../../css/searchResult.module.css";
+import style from "../../css/likeThBox.module.css";
 
 const Post = ({
   id,
@@ -20,13 +20,13 @@ const Post = ({
   username,
 }) => {
   return (
-    <div className={style.postCard}>
+    <div className={style.likeContainer}>
       <Link to={`detail/${id}`}>
-        <img src={image} alt={title} className={style.postImage} />
-        <div className={style.postContent}>
-          <h3 className={style.postTitle}>{title}</h3>
-          <p className={style.postAuthor}>by {username}</p>
-        </div>
+        <img
+          src={image || "https://via.placeholder.com/150x150/000080"}
+          className={style.img}
+        />
+        <h3 className={style.post_title}>{title}</h3>
       </Link>
     </div>
   );

@@ -13,7 +13,7 @@ import {
   setUserPostList,
 } from "../redux/userSlice";
 import { fetchUserLikes } from "../api/likesApi";
-import { fetchPosts } from "../api/postapi";
+import { fetchUserPosts } from "../api/postapi";
 
 export default function Login({ onClose }) {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ export default function Login({ onClose }) {
       }
 
       // 그 다음 posts 데이터 로드
-      const postData = await fetchPosts(response.data.username);
+      const postData = await fetchUserPosts(response.data.username);
       if (postData) {
         dispatch(setUserPostList(postData));
       }

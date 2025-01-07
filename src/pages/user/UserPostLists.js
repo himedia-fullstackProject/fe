@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ThBox from "../../components/ThBox";
-import style from "../../css/thbox.module.css";
+import style from "../../css/likeThBox.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../../api/postapi";
+import { fetchUserPosts } from "../../api/postapi";
 import { setUserPostList } from "../../redux/userSlice";
+import Post from "../post/Post";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function UserPostLists() {
   const dispatch = useDispatch();
@@ -12,19 +13,19 @@ export default function UserPostLists() {
   const username = user?.username;
   const [currentPage, setCurrentPage] = useState(0);
   const userPostData = useSelector((state) => state.user.postList);
-
+  const navigate = useNavigate();
   useEffect(() => {
-    const fetchUserPosts = async () => {
+    const fetchUserPostsList = async () => {
       if (username) {
         try {
-          const userPostData = await fetchPosts(username, currentPage);
+          const userPostData = await fetchUserPosts(username, currentPage, 6);
           dispatch(setUserPostList(userPostData));
         } catch (error) {
           console.error("벌레컷 : ", error);
         }
       }
     };
-    fetchUserPosts();
+    fetchUserPostsList();
   }, [username, currentPage, dispatch]);
 
   const handlePageChange = (newPage) => {
@@ -34,34 +35,41 @@ export default function UserPostLists() {
   if (!userPostData?.content) {
     return <div>로딩 중...</div>;
   }
+  const handlePostClick = (postId) => {
+    navigate(`/detail/${postId}`, { replace: true }); // replace: true를 추가하여 절대 경로로 이동
+  };
 
   return (
     <div className={style.likeContainer}>
       <h1 className={style.title}>#{username}</h1>
       <div className={style.grid}>
-        {userPostData.content.map((post) => (
-          <ThBox
-            key={post.id}
-            id={post.id}
-            image={post.image}
-            title={post.title}
-          />
-        ))}
+        {userPostData.content
+          .slice(currentPage * 6, (currentPage + 1) * 6) // 현재 페이지에 해당하는 6개 항목만 표시
+          .map((post) => (
+            <div
+              onClick={() => handlePostClick(post.id)}
+              key={post.id}
+              className={style.postCard}
+            >
+              <Post id={post.id} image={post.image} title={post.title} />
+            </div>
+          ))}
       </div>
-
       {userPostData.totalPages > 0 && (
         <div className={style.pagination}>
-          {[...Array(userPostData.totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index)}
-              className={`${style.page_button} ${
-                currentPage === index ? style.active : ""
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
+          {[...Array(Math.ceil(userPostData.content.length / 6))].map(
+            (_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index)}
+                className={`${style.page_button} ${
+                  currentPage === index ? style.active : ""
+                }`}
+              >
+                {index + 1}
+              </button>
+            )
+          )}
         </div>
       )}
     </div>

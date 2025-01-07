@@ -5,7 +5,7 @@ import { setLikesList } from "../redux/userSlice";
 import style from "../css/likeThBox.module.css";
 
 //유저 - 포스트에 관하여 좋아요 처리
-export default function LikeThBox({ id, image, title, author }) {
+export default function LikeThBox({ id, image, title }) {
   const [isLiked, setIsLiked] = useState(true); //초기값 true
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.user.userInfoList);
@@ -44,11 +44,7 @@ export default function LikeThBox({ id, image, title, author }) {
 
   return (
     <div className={style.likeContainer}>
-      <img
-        className={style.img}
-        alt={title}
-        src={image || "https://via.placeholder.com/150x150/000080"} // 이미지가 없을 경우 기본 이미지
-      />
+      <img className={style.img} src={image} />
       <p className={style.post_title}>{title}</p>
       <button
         onClick={handleLikeClick}
