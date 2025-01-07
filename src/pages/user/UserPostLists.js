@@ -1,49 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ThBox from "../../components/ThBox";
 import style from "../../css/thbox.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts } from "../../api/postapi";
+import { setUserPostList } from "../../redux/userSlice";
 
 export default function UserPostLists() {
-  const [userPosts, setUserPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const dispatch = useDispatch();
+  const userList = useSelector((state) => state.user.userInfoList);
+  const user = userList?.[0];
+  const username = user?.username;
+  const [currentPage, setCurrentPage] = useState(0);
+  const userPostData = useSelector((state) => state.user.postList);
 
-  const dummydata = [
-    {
-      id: 1,
-      title: "울해, 가장 많이 사랑받은 뷰티 아이템은?",
-      author: "데일리뷰티가이드",
-      imageUrl: "/path-to-image1.jpg",
-    },
-    {
-      id: 2,
-      title: "인스타 핫로위 8000원, 로제의 질센 아이템",
-      author: "rosegosta",
-      imageUrl: "/path-to-image2.jpg",
-    },
-  ];
+  useEffect(() => {
+    const fetchUserPosts = async () => {
+      if (username) {
+        try {
+          const userPostData = await fetchPosts(username, currentPage);
+          dispatch(setUserPostList(userPostData));
+        } catch (error) {
+          console.error("벌레컷 : ", error);
+        }
+      }
+    };
+    fetchUserPosts();
+  }, [username, currentPage, dispatch]);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+  //유저가 글 더 쓰면 페이지 추가되게
+  if (!userPostData?.content) {
+    return <div>로딩 중...</div>;
+  }
+
   return (
-    <div className={style.box_container}>
-      <h1 className={style.title}>#USER_ID </h1>
+    <div className={style.likeContainer}>
+      <h1 className={style.title}>#{username}</h1>
       <div className={style.grid}>
-        {dummydata.map((post) => (
+        {userPostData.content.map((post) => (
           <ThBox
             key={post.id}
             id={post.id}
-            imageUrl={post.imageUrl}
+            image={post.image}
             title={post.title}
-            author={post.author}
           />
         ))}
       </div>
-      {/* 페이지네이션 */}
-      {totalPages > 1 && (
+
+      {userPostData.totalPages > 0 && (
         <div className={style.pagination}>
-          {[...Array(totalPages)].map((_, index) => (
+          {[...Array(userPostData.totalPages)].map((_, index) => (
             <button
-              key={index + 1}
-              onClick={() => setCurrentPage(index + 1)}
-              className={`${style.pageButton} ${
-                currentPage === index + 1 ? style.pageButtonActive : ""
+              key={index}
+              onClick={() => handlePageChange(index)}
+              className={`${style.page_button} ${
+                currentPage === index ? style.active : ""
               }`}
             >
               {index + 1}

@@ -17,6 +17,7 @@ h1 {
 .user_info {
   width: 926px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background-color: #49b8e8;
   color: white;

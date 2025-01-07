@@ -11,6 +11,7 @@ const userSlice = createSlice({
     jwtToken: null,
     role: null,
     likedList: [],
+    postList: [],
   },
   reducers: {
     addUserInfo: (state, action) => {
@@ -40,6 +41,9 @@ const userSlice = createSlice({
     setLikesList: (state, action) => {
       state.likedList = action.payload;
     },
+    setUserPostList: (state, action) => {
+      state.postList = action.payload;
+    },
   },
 });
 //user가 로그인을 하면 like 리스트 안에 likes list api 호출하여 보여지게 함
@@ -52,5 +56,6 @@ export const {
   saveJwtToken,
   setRole,
   setLikesList,
+  setUserPostList,
 } = userSlice.actions;
 export default userSlice.reducer;

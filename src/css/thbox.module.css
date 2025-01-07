@@ -43,13 +43,14 @@
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 10px;
-  margin-top: 40px;
-  position: fixed;
-  bottom: 40px; /* 아래에서 40px 떨어짐 */
-  left: 50%; /* 가운데 정렬을 위해 */
-  transform: translateX(-50%); /* 가운데 정렬 완성 */
-  width: 100%; /* 전체 너비 사용 */
+  /* margin: 0px auto;  */
+  position: relative; /* 부모 요소 안에서 동작 */
+  left: 50%;
+  bottom: 0px; /* fixed 위치 제거 */
+  transform: translateX(-50%);
+  max-width: fit-content; /* 버튼 크기에 따라 동적 조정 */
 }
 
 .page_button {
@@ -72,3 +73,16 @@
   border-color: #28abe3;
 }
 /* 페이지 네이션 버튼 디자인 */
+.tags {
+  margin-top: 8px; /* 태그와 다른 요소 간의 간격 */
+}
+
+.tag {
+  display: inline-block; /* 태그를 인라인 블록으로 설정 */
+  background-color: #d1e7dd; /* 태그 배경색 */
+  color: #0f5132; /* 태그 텍스트 색 */
+  padding: 5px 10px; /* 패딩 설정 */
+  border-radius: 3px; /* 테두리 둥글게 */
+  margin-right: 5px; /* 태그 간의 간격 */
+  font-size: 0.875rem; /* 폰트 크기 */
+}
