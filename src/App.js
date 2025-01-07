@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import "./App.css";
-
-function App() {
-  return <></>;
-=======
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/Layout";
@@ -65,7 +59,6 @@ function App() {
       </BrowserRouter>
     </>
   );
->>>>>>> dev
 }
 
 export default App;
