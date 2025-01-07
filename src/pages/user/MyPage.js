@@ -4,13 +4,15 @@ import style from "../../css/mypage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUserLikes } from "../../api/likesApi";
-import { setLikesList } from "../../redux/userSlice";
+import { setLikesList, setUserPostList } from "../../redux/userSlice";
 import LikeThBox from "../../components/LikeThBox";
+import { fetchPosts } from "../../api/postApi";
 
 export default function MyPage() {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.user.userInfoList);
   const likedList = useSelector((state) => state.user.likedList);
+  const postList = useSelector((state) => state.user.postList);
   const user = userList?.[0];
   const nav = useNavigate();
 
@@ -18,6 +20,7 @@ export default function MyPage() {
   useEffect(() => {
     if (user?.username) {
       getUserLikes(user.username);
+      getUserPosts(user.username);
     }
   }, [user]);
 
@@ -33,6 +36,22 @@ export default function MyPage() {
       return true;
     } catch (error) {
       console.error("좋아요 데이터 로드 실패:", error);
+      return false;
+    }
+  };
+
+  const getUserPosts = async (username) => {
+    try {
+      if (!username) {
+        console.error("유저 아름 없음");
+        return false;
+      }
+      const userPostData = await fetchPosts(username);
+      dispatch(setUserPostList(userPostData));
+      console.log("성공성공", userPostData);
+      return true;
+    } catch (error) {
+      console.error("으앙 실패", error);
       return false;
     }
   };
@@ -56,9 +75,15 @@ export default function MyPage() {
     }
   };
 
-  const handleGoToMyFeed = (e) => {
-    e.preventDefault();
-    nav("/userpostlists");
+  const handleGoToMyFeed = async () => {
+    try {
+      const successPosts = await getUserPosts(user?.username);
+      if (successPosts) {
+        nav("/userpostlists");
+      }
+    } catch (error) {
+      console.error("user Post  페이지 이동 중 에러:", error);
+    }
   };
 
   return (
@@ -71,7 +96,6 @@ export default function MyPage() {
           </div>
           <div className={style.join_info}>
             가입날짜: {getJoinDate(user)} <br />
-            작성 게시글 수: 9
           </div>
         </div>
       </div>

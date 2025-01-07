@@ -1,0 +1,32 @@
+/* components/LikeButton.module.css */
+.likeButton {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.heart {
+  transition: transform 0.2s ease;
+}
+
+.heart:hover {
+  transform: scale(1.1);
+}
+
+.liked {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
