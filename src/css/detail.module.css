@@ -87,6 +87,8 @@
 
 .content p {
   margin-bottom: 20px;
+  text-align: left;
+  letter-spacing: -0.5px;
 }
 
 /* Action Buttons */

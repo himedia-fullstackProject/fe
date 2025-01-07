@@ -44,7 +44,6 @@ const Fashion = () => {
     navigate(`/detail/${id}`); // 포스트 ID를 기반으로 디테일 페이지로 이동
   };
 
-
   return (
     <div className={styles.box_container}>
       <BurgerMenu />
@@ -54,7 +53,12 @@ const Fashion = () => {
       <div className={styles.grid}>
         {currentPosts.map((post) => (
           <div key={post.id} className={styles.post}>
-            <img src={post.image} alt={post.title} className={styles.img} onClick={() => handlePostClick(post.id)} />
+            <img
+              src={post.image}
+              alt={post.title}
+              className={styles.img}
+              onClick={() => handlePostClick(post.id)}
+            />
             <h4 className={styles.post_title}>{post.title}</h4>
             <p className={styles.author}>작성자: {post.username}</p>
             <div className={styles.tags}>
@@ -76,7 +80,9 @@ const Fashion = () => {
           <button
             key={index}
             onClick={() => paginate(index + 1)}
-            className={`${styles.pageButton} ${currentPage === index + 1 ? styles.active : ''}`}
+            className={`${styles.page_button} ${
+              currentPage === index + 1 ? styles.active : ""
+            }`}
           >
             {index + 1}
           </button>

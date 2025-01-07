@@ -21,7 +21,7 @@ const Post = ({
 }) => {
   return (
     <div className={style.likeContainer}>
-      <Link to={`detail/${id}`}>
+      <Link to={`/detail/${id}`}>
         <img
           src={image || "https://via.placeholder.com/150x150/000080"}
           className={style.img}

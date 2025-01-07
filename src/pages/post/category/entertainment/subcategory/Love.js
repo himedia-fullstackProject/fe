@@ -52,7 +52,11 @@ const Love = () => {
 
       <div className={styles.grid}>
         {currentPosts.map((post) => (
-          <div key={post.id} className={styles.post} onClick={() => handlePostClick(post.id)}>
+          <div
+            key={post.id}
+            className={styles.post}
+            onClick={() => handlePostClick(post.id)}
+          >
             <img src={post.image} alt={post.title} className={styles.img} />
             <h4 className={styles.post_title}>{post.title}</h4>
             <p className={styles.author}>작성자: {post.username}</p>
@@ -75,7 +79,9 @@ const Love = () => {
           <button
             key={index}
             onClick={() => paginate(index + 1)}
-            className={`${styles.pageButton} ${currentPage === index + 1 ? styles.active : ''}`}
+            className={`${styles.page_button} ${
+              currentPage === index + 1 ? styles.active : ""
+            }`}
           >
             {index + 1}
           </button>

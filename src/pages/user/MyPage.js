@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import ThBox from "../../components/ThBox";
-import style from "../../css/mypage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUserLikes } from "../../api/likesApi";
-import { setLikesList, setUserPostList } from "../../redux/userSlice";
-import LikeThBox from "../../components/LikeThBox";
 import { fetchUserPosts } from "../../api/postapi";
+import LikeThBox from "../../components/LikeThBox";
+import style from "../../css/mypage.module.css";
+import { setLikesList, setUserPostList } from "../../redux/userSlice";
 import Post from "../post/Post";
 
 export default function MyPage() {
