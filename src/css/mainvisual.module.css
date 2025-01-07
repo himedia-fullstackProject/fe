@@ -1,6 +1,7 @@
 .swiper_slide {
   position: relative;
   cursor: pointer;
+  height: 500px;
 }
 
 .title {

@@ -1,5 +1,4 @@
 import React from "react";
-import ThBox from "../../../../components/ThBox";
 
 export default function FashionBeauty() {
   return (
