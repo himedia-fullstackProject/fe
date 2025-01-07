@@ -8,7 +8,6 @@ export default function Home() {
   return (
     <div>
       <MainVisual />
-      <BurgerMenu />
       <div className={style.box_container}>
         <ThBox />
       </div>
