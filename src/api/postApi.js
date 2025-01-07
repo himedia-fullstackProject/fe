@@ -94,3 +94,13 @@ export const searchPosts = async (searchRequest) => {
     throw error;
   }
 };
+
+export const fetchPostDetail = async (id) => {
+  try {
+    const res = await apiClient.get(`/api/posts/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("포스트 디텡ㄹ 살패", error);
+    throw error;
+  }
+};
