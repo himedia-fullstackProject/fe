@@ -1,6 +1,4 @@
 import apiClient from "./api";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setLikesList } from "../redux/userSlice";
 
 // user엔티티에 있는 username
 export const fetchUserLikes = async (username, page = 0) => {

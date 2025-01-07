@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { fetchUserLikes } from "../../api/likesApi";
 import { setLikesList, setUserPostList } from "../../redux/userSlice";
 import LikeThBox from "../../components/LikeThBox";
-import { fetchPosts } from "../../api/postapi";
+import { fetchUserPosts } from "../../api/postapi";
+import Post from "../post/Post";
 
 export default function MyPage() {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ export default function MyPage() {
 
   // 컴포넌트 마운트 시 좋아요 데이터 자동 로드
   useEffect(() => {
+    console.log("현재 user 객체:", user); // user 전체 객체 확인
+    console.log("username:", user?.username);
     if (user?.username) {
       getUserLikes(user.username);
       getUserPosts(user.username);
@@ -46,7 +49,7 @@ export default function MyPage() {
         console.error("유저 아름 없음");
         return false;
       }
-      const userPostData = await fetchPosts(username);
+      const userPostData = await fetchUserPosts(username);
       dispatch(setUserPostList(userPostData));
       console.log("성공성공", userPostData);
       return true;
@@ -111,9 +114,17 @@ export default function MyPage() {
 
       <h2>#최근 작성 글</h2>
       <div className={style.thumbnails}>
-        <ThBox />
-        <ThBox />
-        <ThBox />
+        {postList?.content?.slice(0, 3).map((post) => (
+          <Post
+            key={post.id}
+            id={post.id}
+            image={post.image}
+            title={post.title}
+          />
+        ))}
+        {(!postList?.content || postList.content.length === 0) && (
+          <p>작성한 게시글이 없습니다.</p>
+        )}
       </div>
 
       <h2>#LIKES</h2>

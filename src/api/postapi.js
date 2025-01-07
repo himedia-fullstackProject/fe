@@ -11,7 +11,8 @@ export const fetchPost = async () => {
 };
 
 // 모든 포스트 가져오기(페이징)
-export const fetchPosts = async () => {
+
+export const fetchUserPosts = async () => {
   try {
     const response = await apiClient.get("/api/posts/all");
     return response.data;

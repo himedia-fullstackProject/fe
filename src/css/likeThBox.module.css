@@ -8,14 +8,6 @@
   position: relative;
 }
 
-.likesContainer {
-  width: fit-content;
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-  position: relative;
-}
-
 .title 
 /* 메인 카테고리 , likes ,user_id 화면에 출력할때 뜨는 파란 글씨 대충 통일 해놈  */ {
   font-size: 2.5rem;
@@ -37,6 +29,14 @@
   color: #222;
   margin: 0;
   text-align: left; /* 왼쪽 정렬*/
+}
+
+.postCard {
+  width: 100%; /* 카드 너비 100% */
+  aspect-ratio: 1/1; /* 정사각형 비율 유지 */
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
 }
 
 .likeButton {
@@ -62,9 +62,12 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-bottom: 50px;
+  grid-template-columns: repeat(3, 1fr); /* 3개의 열 */
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  overflow: hidden;
+  margin: 0 auto 30px;
 }
 @keyframes pop {
   0% {
@@ -111,3 +114,9 @@
   border-color: #28abe3;
 }
 /* 페이지 네이션 버튼 디자인 */
+
+.post_author {
+  font-size: 12px;
+  font-weight: 400;
+  color: #222;
+}
