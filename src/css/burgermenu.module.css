@@ -2,6 +2,7 @@
   position: relative;
   width: fit-content;
   top: 30px;
+  z-index: 10;
 }
 
 .burger_button {
@@ -11,7 +12,7 @@
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  z-index: 10;
+  z-index: 100;
 }
 
 .burger_button span {

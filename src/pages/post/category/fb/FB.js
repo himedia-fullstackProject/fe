@@ -15,7 +15,7 @@ const FB = () => {
     const loadPostsAndSubCategories = async () => {
       try {
         const postsResponse = await fetchPost(); // 모든 포스트 가져오기
-        console.log(postsResponse); // API 응답 확인
+        // console.log(postsResponse); // API 응답 확인
 
         if (Array.isArray(postsResponse)) {
           setPosts(postsResponse); // 포스트 상태 설정
@@ -84,7 +84,11 @@ const FB = () => {
           </h3>
           <div className={styles.grid}>
             {postsBySubCategory[subCategory.id]?.map((post) => (
-              <div key={post.id} className={styles.post} onClick={() => handlePostClick(post.id)}>
+              <div
+                key={post.id}
+                className={styles.post}
+                onClick={() => handlePostClick(post.id)}
+              >
                 <img src={post.image} alt={post.title} className={styles.img} />
                 <h4 className={styles.post_title}>{post.title}</h4>
                 <p className={styles.author}>작성자: {post.username}</p>

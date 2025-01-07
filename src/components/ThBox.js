@@ -14,7 +14,7 @@ const Thbox = () => {
     const loadPosts = async () => {
       try {
         const postsResponse = await fetchPost();
-        console.log(postsResponse); // API 응답 확인
+        // console.log(postsResponse); // API 응답 확인
 
         // 응답의 content 배열에서 포스트 데이터 추출
         if (Array.isArray(postsResponse)) {
@@ -71,7 +71,11 @@ const Thbox = () => {
           </h3>
           <div className={styles.grid}>
             {postsByCategory[category.id]?.slice(0, 3).map((post) => (
-              <div key={post.id} className={styles.post} onClick={() => handlePostClick(post.id)}>
+              <div
+                key={post.id}
+                className={styles.post}
+                onClick={() => handlePostClick(post.id)}
+              >
                 <img src={post.image} alt={post.title} className={styles.img} />
                 <h4 className={styles.post_title}>{post.title}</h4>
                 <p className={styles.author}>작성자: {post.username}</p>

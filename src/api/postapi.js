@@ -12,14 +12,14 @@ export const fetchPost = async () => {
 
 // 모든 포스트 가져오기(페이징)
 export const fetchPosts = async () => {
-    try {
-      const response = await apiClient.get("/api/posts/all");
-      return response.data;
-    } catch (error) {
-      console.error("Failed to fetch posts:", error);
-      throw error; // 에러를 상위로 전달
-    }
-  };
+  try {
+    const response = await apiClient.get("/api/posts/all");
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+    throw error; // 에러를 상위로 전달
+  }
+};
 
 // 포스트 추가하기
 export const addPost = async (post, token) => {
@@ -99,19 +99,18 @@ export const fetchSearchPosts = async (searchTerms, page = 0, size = 6) => {
 };
 
 export const fetchPostDetail = async (id) => {
-    try {
-      const res = await apiClient.get(`/api/posts/${id}`);
-      
-      // 응답 데이터 로그 출력
-      console.log(res.data);
-  
-      return res.data;
-    } catch (error) {
-      console.error("포스트 로딩 실패:", error);
-      throw error;
-    }
-  };
-  
+  try {
+    const res = await apiClient.get(`/api/posts/${id}`);
+
+    // 응답 데이터 로그 출력
+    // console.log(res.data);
+
+    return res.data;
+  } catch (error) {
+    console.error("포스트 로딩 실패:", error);
+    throw error;
+  }
+};
 
 export const getCategory = async () => {
   try {
@@ -125,22 +124,22 @@ export const getCategory = async () => {
 
 // 메인 카테고리 가져오기
 export const fetchMainCategories = async () => {
-    try {
-      const res = await apiClient.get(`/api/main-categories`); // 메인 카테고리 API 호출
-      return res.data;
-    } catch (error) {
-      console.error("메인 카테고리 가져오기 실패", error);
-      throw error;
-    }
-  };
-  
-  // 서브 카테고리 가져오기
-  export const fetchSubCategories = async () => {
-    try {
-      const res = await apiClient.get(`/api/sub-categories`); // 서브 카테고리 API 호출
-      return res.data;
-    } catch (error) {
-      console.error("서브 카테고리 가져오기 실패", error);
-      throw error;
-    }
-  };
+  try {
+    const res = await apiClient.get(`/api/main-categories`); // 메인 카테고리 API 호출
+    return res.data;
+  } catch (error) {
+    console.error("메인 카테고리 가져오기 실패", error);
+    throw error;
+  }
+};
+
+// 서브 카테고리 가져오기
+export const fetchSubCategories = async () => {
+  try {
+    const res = await apiClient.get(`/api/sub-categories`); // 서브 카테고리 API 호출
+    return res.data;
+  } catch (error) {
+    console.error("서브 카테고리 가져오기 실패", error);
+    throw error;
+  }
+};

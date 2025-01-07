@@ -15,7 +15,7 @@ const FashionBeauty = () => {
     const loadPostsAndSubCategories = async () => {
       try {
         const postsResponse = await fetchPost(); // 모든 포스트 가져오기
-        console.log(postsResponse); // API 응답 확인
+        // console.log(postsResponse); // API 응답 확인
 
         if (Array.isArray(postsResponse)) {
           setPosts(postsResponse); // 포스트 상태 설정

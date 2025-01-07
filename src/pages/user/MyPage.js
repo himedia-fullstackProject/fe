@@ -61,6 +61,8 @@ export default function MyPage() {
     return `${user.joinDate[0]}-${user.joinDate[1]}-${user.joinDate[2]}`;
   };
 
+  console.log(user);
+
   const getUsername = (user) => user?.username || "GUEST";
   const getNickname = (user) => user?.nickname || "Guest";
 
@@ -94,9 +96,7 @@ export default function MyPage() {
           <div className={style.user_nick}>
             <span>{getNickname(user)}</span> 님
           </div>
-          <div className={style.join_info}>
-            가입날짜: {getJoinDate(user)} <br />
-          </div>
+          <div className={style.join_info}>가입날짜: {getJoinDate(user)}</div>
         </div>
       </div>
 
