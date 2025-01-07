@@ -10,13 +10,13 @@ export default function Search({ onClose }) {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    console.log("검색어:", searchTerm);
+    // console.log("검색어:", searchTerm);
 
     if (searchTerm.trim()) {
       try {
         setLoading(true);
         const response = await fetchSearchPosts(searchTerm);
-        console.log("검색 결과:", response); // 디버깅용
+        // console.log("검색 결과:", response); // 디버깅용
 
         nav(`/search/result?searchTerms=${encodeURIComponent(searchTerm)}`, {
           state: {
@@ -37,7 +37,7 @@ export default function Search({ onClose }) {
     try {
       setLoading(true);
       const response = await fetchSearchTagPosts(tag);
-      console.log("태그 검색 결과:", response);
+      // console.log("태그 검색 결과:", response);
 
       nav(`/search/tag?tag=${encodeURIComponent(tag)}`, {
         state: {
@@ -84,7 +84,7 @@ export default function Search({ onClose }) {
           <div className={style.tag_section}>
             <h3 className={style.tag_title}>#요즘 떠오르는 TAG는?</h3>
             <div className={style.tag_list}>
-              {["서울", "개인", "맛집", "운동", "공부"].map((tag) => (
+              {["K뷰티", "새해", "맛집", "운동", "AI"].map((tag) => (
                 <span
                   key={tag}
                   className={style.tag}

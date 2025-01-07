@@ -12,7 +12,7 @@ const LikeButton = ({ postId }) => {
   const userId = userList.length > 0 ? userList[0]?.user_id : null;
   const isLiked = likesList[postId] === userId || false;
 
-  console.log("likedList content:", likesList);
+  // console.log("likedList content:", likesList);
 
   const handleLikeClick = async (e) => {
     e.preventDefault();

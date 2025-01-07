@@ -82,7 +82,7 @@ export const fetchSearchTagPosts = async (tag, page = 0, size = 6) => {
 };
 
 export const fetchSearchPosts = async (searchTerms, page = 0, size = 6) => {
-  console.log("API 호출 파라미터:", { searchTerms, page, size }); // 디버깅 로그 추가
+  // console.log("API 호출 파라미터:", { searchTerms, page, size }); // 디버깅 로그 추가
   try {
     const response = await apiClient.get("/api/posts/search", {
       params: {
@@ -91,7 +91,7 @@ export const fetchSearchPosts = async (searchTerms, page = 0, size = 6) => {
         size,
       },
     });
-    console.log("API 응답:", response.data); // 디버깅 로그 추가
+    // console.log("API 응답:", response.data); // 디버깅 로그 추가
     return response.data;
   } catch (error) {
     console.error("API 호출 에러:", error); // 디버깅 로그 추가

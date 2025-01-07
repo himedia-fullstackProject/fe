@@ -16,12 +16,12 @@ export default function SearchResult() {
   const [isLastPage, setIsLastPage] = useState(true);
 
   useEffect(() => {
-    console.log("location state:", location.state); // 디버깅용
+    // console.log("location state:", location.state); // 디버깅용
     if (location.state?.searchResults) {
       // 응답 데이터 구조에 맞게 수정
       const { content, totalPosts, totalPages, firstPage, lastPage, nowPage } =
         location.state.searchResults;
-      console.log("content:", content); // 디버깅용
+      // console.log("content:", content); // 디버깅용
       setResultPosts(content);
       setTotalPosts(totalPosts);
       setTotalPages(totalPages);
@@ -31,7 +31,7 @@ export default function SearchResult() {
     }
   }, [location.state]);
 
-  console.log("resultPosts:", resultPosts); // 디버깅용
+  // console.log("resultPosts:", resultPosts); // 디버깅용
 
   const handlePageChange = async (newPage) => {
     try {

@@ -30,7 +30,7 @@ export default function Detail() {
       try {
         const postData = await fetchPostDetail(id);
         setPostDetail(postData);
-        console.log("포스트 데이터:", postData); // 포스트 데이터 확인
+        // console.log("포스트 데이터:", postData); // 포스트 데이터 확인
       } catch (error) {
         console.error("포스트 로딩 실패:", error);
       }

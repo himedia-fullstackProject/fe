@@ -20,6 +20,7 @@ export default function HashTagSearchResult() {
     if (location.state?.searchResults) {
       const { content, totalPosts, totalPages, firstPage, lastPage, nowPage } =
         location.state.searchResults;
+      console.log("Result Posts Data:", content);
       setResultPosts(content);
       setTotalPosts(totalPosts);
       setTotalPages(totalPages);
