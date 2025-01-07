@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -24,10 +25,17 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2qnBE031Q6drXD45JJZIMZS0S5R" />
+=======
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2rFdsMEmAfoIszBphNuGzu1AVIa" />
+>>>>>>> 6e26a079b8e6e782ca8a1c3c76cea06ea788cf13
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -73,4 +81,7 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+=======
+  <component name="PropertiesComponent">{}</component>
+>>>>>>> 6e26a079b8e6e782ca8a1c3c76cea06ea788cf13
 </project>

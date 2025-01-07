@@ -8,8 +8,9 @@ export default function Home() {
   return (
     <div>
       <MainVisual />
-      <BurgerMenu />
-      <ThBox /> {/* 전체 포스트를 나열하는 ThBox 컴포넌트 */}
+      <div className={style.box_container}>
+        <ThBox />
+      </div>
     </div>
   );
 }

@@ -37,7 +37,7 @@ export default function UserLikesPage() {
   }
 
   return (
-    <div className={style.likeContainer}>
+    <div className={style.likesContainer}>
       <h1 className={style.title}>#LIKES</h1>
       <div className={style.grid}>
         {likeData.content.map((post) => (
