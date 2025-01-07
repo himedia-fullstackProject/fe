@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import style from "../../css/detail.module.css";
-import { fetchPostDetail } from "../../api/postapi"; 
+import { fetchPostDetail } from "../../api/postapi";
 import LikeButton from "../../components/LikeButton";
 
 export default function Detail() {
@@ -19,7 +19,7 @@ export default function Detail() {
     5: "love",
     6: "travel",
     7: "etc",
-    8: "health", 
+    8: "health",
   };
 
   useEffect(() => {
@@ -39,13 +39,13 @@ export default function Detail() {
 
   // 서브카테고리 ID로 서브카테고리 이름 가져오기
   const getSubCategoryName = () => {
-    return subCategoryNames[postDetail.subCategoryId] || ''; // 해당 ID에 맞는 이름 반환
+    return subCategoryNames[postDetail.subCategoryId] || ""; // 해당 ID에 맞는 이름 반환
   };
 
   return (
     <div className={style.detailContainer}>
-      <div className={style.category}>#{getSubCategoryName()}</div> {/* 서브카테고리 이름 출력 */}
-
+      <div className={style.category}>#{getSubCategoryName()}</div>{" "}
+      {/* 서브카테고리 이름 출력 */}
       <div className={style.postHeader}>
         <h1 className={style.title}>{postDetail.title}</h1>
 
@@ -72,7 +72,6 @@ export default function Detail() {
           <p>{postDetail.description}</p>
         </div>
       </div>
-
       <div className={style.actionButtons}>
         <button className={style.editButton}>수정 하기</button>
         <button className={style.deleteButton}>삭제 하기</button>
