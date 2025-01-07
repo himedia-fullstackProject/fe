@@ -64,7 +64,7 @@ export const deletePost = async (postId, token) => {
   }
 };
 
-export const searchTagPosts = async (tag, page = 0, size = 6) => {
+export const fetchSearchTagPosts = async (tag, page = 0, size = 6) => {
   try {
     const response = await apiClient.get("/api/posts/search/tag", {
       params: {
@@ -80,19 +80,20 @@ export const searchTagPosts = async (tag, page = 0, size = 6) => {
   }
 };
 
-export const searchPosts = async (searchRequest) => {
+export const fetchSearchPosts = async (searchTerms, page = 0, size = 6) => {
+  console.log("API 호출 파라미터:", { searchTerms, page, size }); // 디버깅 로그 추가
   try {
-    const response = await apiClient.post("/api/posts/search", {
-      searchTerm: searchRequest.searchTerm,
-      mainCategoryId: searchRequest.mainCategoryId,
-      subCategoryId: searchRequest.subCategoryId,
-      searchType: searchRequest.searchType,
-      page: searchRequest.page || 0,
-      size: searchRequest.size || 6,
+    const response = await apiClient.get("/api/posts/search", {
+      params: {
+        searchTerms,
+        page,
+        size,
+      },
     });
+    console.log("API 응답:", response.data); // 디버깅 로그 추가
     return response.data;
   } catch (error) {
-    console.error("검색 실패:", error);
+    console.error("API 호출 에러:", error); // 디버깅 로그 추가
     throw error;
   }
 };
