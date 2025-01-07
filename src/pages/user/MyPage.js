@@ -12,6 +12,7 @@ export default function MyPage() {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.user.userInfoList);
   const likedList = useSelector((state) => state.user.likedList);
+  const postList = useSelector((state) => state.user.postList);
   const user = userList?.[0];
   const nav = useNavigate();
 
@@ -95,7 +96,6 @@ export default function MyPage() {
           </div>
           <div className={style.join_info}>
             가입날짜: {getJoinDate(user)} <br />
-            작성 게시글 수: 9
           </div>
         </div>
       </div>

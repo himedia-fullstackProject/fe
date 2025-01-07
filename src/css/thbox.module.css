@@ -43,13 +43,14 @@
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 10px;
-  margin-top: 40px;
-  position: fixed;
-  bottom: 40px; /* 아래에서 40px 떨어짐 */
-  left: 50%; /* 가운데 정렬을 위해 */
-  transform: translateX(-50%); /* 가운데 정렬 완성 */
-  width: 100%; /* 전체 너비 사용 */
+  /* margin: 0px auto;  */
+  position: relative; /* 부모 요소 안에서 동작 */
+  left: 50%;
+  bottom: 0px; /* fixed 위치 제거 */
+  transform: translateX(-50%);
+  max-width: fit-content; /* 버튼 크기에 따라 동적 조정 */
 }
 
 .page_button {
