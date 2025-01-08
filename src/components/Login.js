@@ -48,10 +48,10 @@ export default function Login({ onClose }) {
       }
 
       // 그 다음 posts 데이터 로드
-      const postData = await fetchUserPosts(response.data.username);
-      if (postData) {
-        dispatch(setUserPostList(postData));
-      }
+      // const postData = await fetchUserPosts(response.data.username);
+      // if (postData) {
+      //   dispatch(setUserPostList(postData));
+      // }
 
       alert("환영합니다.");
       onClose();
