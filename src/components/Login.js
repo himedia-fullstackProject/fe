@@ -32,14 +32,14 @@ export default function Login({ onClose }) {
         }
       );
 
-      console.log("로그인 응답 데이터:", response.data); // 여기서 userId 확인
+      // console.log("로그인 응답 데이터:", response.data); // 여기서 userId 확인
 
       const token = response.headers["authorization"];
       await dispatch(login(email));
       console.log("토큰:" + token);
       await dispatch(saveJwtToken(token));
       await dispatch(setRole(response.data.role));
-      console.log("로그인 후 currentUser:", response.data);
+      // console.log("로그인 후 currentUser:", response.data);
       await dispatch(addUserInfo(response.data));
 
       const likesData = await fetchUserLikes(response.data.username);

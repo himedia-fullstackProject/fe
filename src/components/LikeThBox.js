@@ -36,7 +36,7 @@ export default function LikeThBox({ id, image, title }) {
         );
       }
       setIsLiked(false);
-      console.log("좋아요 취소 완료:", result);
+      // console.log("좋아요 취소 완료:", result);
     } catch (error) {
       console.error("좋아요 처리 실패", error);
     }

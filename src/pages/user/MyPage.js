@@ -34,7 +34,7 @@ export default function MyPage() {
       }
       const likesData = await fetchUserLikes(username);
       dispatch(setLikesList(likesData));
-      console.log("좋아요 데이터 로드 성공:", likesData);
+      // console.log("좋아요 데이터 로드 성공:", likesData);
       return true;
     } catch (error) {
       console.error("좋아요 데이터 로드 실패:", error);
@@ -50,7 +50,7 @@ export default function MyPage() {
       }
       const userPostData = await fetchUserPosts(username);
       dispatch(setUserPostList(userPostData));
-      console.log("성공성공", userPostData);
+      // console.log("성공성공", userPostData);
       return true;
     } catch (error) {
       console.error("으앙 실패", error);
@@ -63,7 +63,7 @@ export default function MyPage() {
     return `${user.joinDate[0]}-${user.joinDate[1]}-${user.joinDate[2]}`;
   };
 
-  console.log(user);
+  // console.log(user);
 
   const getUsername = (user) => user?.username || "GUEST";
   const getNickname = (user) => user?.nickname || "Guest";
