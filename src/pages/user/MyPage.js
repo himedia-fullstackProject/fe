@@ -106,12 +106,12 @@ export default function MyPage() {
         <button className={style.like_button} onClick={handleGoToLikes}>
           좋아요 누른 글
         </button>
-        <button className={style.myfeed_button} onClick={handleGoToMyFeed}>
+        {/* <button className={style.myfeed_button} onClick={handleGoToMyFeed}>
           MY FEED
-        </button>
+        </button> */}
       </div>
 
-      <h2>#최근 작성 글</h2>
+      {/* <h2>#최근 작성 글</h2>
       <div className={style.thumbnails}>
         {postList?.content?.slice(0, 3).map((post) => (
           <Post
@@ -124,7 +124,7 @@ export default function MyPage() {
         {(!postList?.content || postList.content.length === 0) && (
           <p>작성한 게시글이 없습니다.</p>
         )}
-      </div>
+      </div> */}
 
       <h2>#LIKES</h2>
       <div className={style.thumbnails}>
