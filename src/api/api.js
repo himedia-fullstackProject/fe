@@ -4,7 +4,7 @@ import { saveJwtToken } from "../redux/userSlice";
 
 // Axios 인스턴스 생성
 const apiClient = axios.create({
-  baseURL: "http://15.164.52.27:8080", // 백엔드 API의 기본 URL
+  baseURL: "http://localhost:8080", // 백엔드 API의 기본 URL
   headers: {
     "Content-Type": "application/json", // 기본 Content-Type
   },
@@ -47,7 +47,7 @@ apiClient.interceptors.response.use(
       try {
         // 리프레시 토큰을 사용하여 새로운 액세스 토큰 요청
         const refreshResponse = await axios.post(
-          "http://15.164.52.27:8080/reissue",
+          "http://localhost:8080/reissue",
           null,
           { withCredentials: true }
         );

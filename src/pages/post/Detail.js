@@ -9,6 +9,7 @@ export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate(); // navigate 훅 사용
   const [postDetail, setPostDetail] = useState(null);
+  const [isPostAuthor, setIsPostAuthor] = useState(false); // 포스트 작성자 여부 상태 추가
 
   const subCategoryNames = {
     1: "fashion",
@@ -30,23 +31,22 @@ export default function Detail() {
       try {
         const postData = await fetchPostDetail(id);
         setPostDetail(postData);
-        // console.log("포스트 데이터:", postData); // 포스트 데이터 확인
+        // 포스트 작성자 여부 확인
+        if (postData.userId && userId) {
+          setIsPostAuthor(String(userId) === String(postData.userId));
+        }
       } catch (error) {
         console.error("포스트 로딩 실패:", error);
       }
     };
 
     getPostDetail();
-  }, [id]);
+  }, [id, userId]); // userId를 의존성 배열에 추가
 
   if (!postDetail) return <div>게시글을 찾을 수 없습니다.</div>;
 
   const getSubCategoryName = () => {
     return subCategoryNames[postDetail.subCategoryId] || "";
-  };
-
-  const isUserPostAuthor = () => {
-    return String(userId) === String(postDetail.userId);
   };
 
   const handleEditClick = () => {
@@ -97,15 +97,14 @@ export default function Detail() {
         </div>
       </div>
       <div className={style.actionButtons}>
-        {userId && isUserPostAuthor() ? (
+        {userId && isPostAuthor ? (
           <>
             <button className={style.editButton} onClick={handleEditClick}>
               수정 하기
             </button>
             <button className={style.deleteButton} onClick={handleDeleteClick}>
               삭제 하기
-            </button>{" "}
-            {/* 삭제하기 버튼 클릭 핸들러 추가 */}
+            </button>
           </>
         ) : (
           <p></p> // 버튼이 표시되지 않을 때 메시지

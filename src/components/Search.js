@@ -37,6 +37,7 @@ export default function Search({ onClose }) {
     try {
       setLoading(true);
       const response = await fetchSearchTagPosts(tag);
+      console.log("태그 검색 결과:", response); // 응답 데이터 출력
       // console.log("태그 검색 결과:", response);
 
       nav(`/search/tag?tag=${encodeURIComponent(tag)}`, {

@@ -1,77 +1,51 @@
-import React, { useEffect, useState } from "react";
-import style from "../../css/likeThBox.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUserPosts } from "../../api/postapi";
-import { setUserPostList } from "../../redux/userSlice";
-import Post from "../post/Post";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { fetchPost } from '../../api/postapi'; // fetchPost 함수를 가져옵니다.
 
-export default function UserPostLists() {
-  const dispatch = useDispatch();
-  const userList = useSelector((state) => state.user.userInfoList);
-  const user = userList?.[0];
-  const username = user?.username;
-  const [currentPage, setCurrentPage] = useState(0);
-  const userPostData = useSelector((state) => state.user.postList);
-  const navigate = useNavigate();
+const UserPostLists = ({ currentUser }) => {
+  const [posts, setPosts] = useState([]); // 로컬 상태로 포스트 저장
+  const [error, setError] = useState(null); // 에러 상태 저장
+
   useEffect(() => {
-    const fetchUserPostsList = async () => {
-      if (username) {
-        try {
-          const userPostData = await fetchUserPosts(username, currentPage, 6);
-          dispatch(setUserPostList(userPostData));
-        } catch (error) {
-          console.error("벌레컷 : ", error);
-        }
+    const fetchUserPosts = async () => {
+      try {
+        const allPosts = await fetchPost(); // 모든 포스트 가져오기
+        setPosts(allPosts); // 포스트를 로컬 상태에 저장
+        setError(null); // 에러 초기화
+      } catch (err) {
+        setError("포스트를 불러오는 데 실패했습니다."); // 에러 설정
       }
     };
-    fetchUserPostsList();
-  }, [username, currentPage, dispatch]);
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
-  //유저가 글 더 쓰면 페이지 추가되게
-  if (!userPostData?.content) {
-    return <div>로딩 중...</div>;
+    fetchUserPosts();
+  }, []);
+
+  // 로그인된 사용자 ID
+  const userId = currentUser?.userId;
+
+  // 로그인된 사용자와 일치하는 포스트 필터링
+  const userPosts = posts.filter(post => post.userId === userId);
+
+  if (error) {
+    return <div>{error}</div>;
   }
-  const handlePostClick = (postId) => {
-    navigate(`/detail/${postId}`); // replace: true를 추가하여 절대 경로로 이동
-  };
 
   return (
-    <div className={style.likeContainer}>
-      <h1 className={style.title}>#{username}</h1>
-      <div className={style.grid}>
-        {userPostData.content
-          .slice(currentPage * 6, (currentPage + 1) * 6) // 현재 페이지에 해당하는 6개 항목만 표시
-          .map((post) => (
-            <div
-              onClick={() => handlePostClick(post.id)}
-              key={post.id}
-              className={style.postCard}
-            >
-              <Post id={post.id} image={post.image} title={post.title} />
-            </div>
+    <div>
+      <h2>내 포스트</h2>
+      {userPosts.length > 0 ? (
+        <ul>
+          {userPosts.map((post) => (
+            <li key={post.id}>
+              <h3>{post.title}</h3>
+              <p>{post.content}</p>
+            </li>
           ))}
-      </div>
-      {userPostData.totalPages > 0 && (
-        <div className={style.pagination}>
-          {[...Array(Math.ceil(userPostData.content.length / 6))].map(
-            (_, index) => (
-              <button
-                key={index}
-                onClick={() => handlePageChange(index)}
-                className={`${style.page_button} ${
-                  currentPage === index ? style.active : ""
-                }`}
-              >
-                {index + 1}
-              </button>
-            )
-          )}
-        </div>
+        </ul>
+      ) : (
+        <p>작성한 포스트가 없습니다.</p>
       )}
     </div>
   );
-}
+};
+
+export default UserPostLists;
